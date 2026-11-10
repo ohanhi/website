@@ -1,6 +1,6 @@
-# ohanhi.com
+# website
 
-This is the source code for my website, [ohanhi.com](https://ohanhi.com/).
+This is the source code for my website, [ohanhi.dev](https://ohanhi.dev/).
 
 ## How it works
 
