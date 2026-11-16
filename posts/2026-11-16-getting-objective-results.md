@@ -95,5 +95,3 @@ Automation helps us focus our communication on the non-trivial and can make newc
 Automated tests can also ensure that the way a feature was originally defined was intentional and even explain which user flows are considered critical in the application.
 
 Now that we have a good baseline understanding of the benefits of automation, I will move on to more specific topics in future articles. In particular, I will explain why I think end-to-end testing is great to start with, but not the end-all solution, and how I approach choosing what to test.
-
-\[EDITOR'S NOTE: I am trying to find the above-mentioned final post in this series! So far, no luck.\]
