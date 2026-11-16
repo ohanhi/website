@@ -47,39 +47,39 @@
 <p>The use case that does remain is tying several side-effects together. A common example of this is when people need a time stamp to go with their HTTP request. <code>Cmd</code>s cannot be set to run one after another. One <em>could</em> add a subscription to <code>Time.every (Time.second)</code> and have the current time always in the model for example, but a whole bunch of requests can happen in a second, and a millisecond timer is just out of the question. So how do we solve this? Tasks.</p>
 <h2 id="task-basics">Task basics</h2>
 <p>Let’s first take a look at how tasks work on their own, before we start bundling them up with each other. One of the simplest tasks in <code>elm-lang/core</code> just so happens to relate to the example above: <code>Time.now</code>. Here’s what the <a href="http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Time#now">current documentation</a> says about it:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">now <span class="fu">:</span> <span class="dt">Task</span> x <span class="dt">Time</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>now <span class="op">:</span> <span class="dt">Task</span> x <span class="dt">Time</span></span></code></pre></div>
 <p>“Get the <code>Time</code> at the moment when this task is run.”</p>
 <p>If you haven’t been dealing with tasks before, you might find it strange that this is not a function that returns a <code>Cmd msg</code>. In fact, it is not a function at all but a constant value! What is going on?</p>
 <p>I find it helpful to think of tasks as if they were shopping lists. A shopping list contains detailed instructions of what should be fetched from the grocery store, but that doesn’t mean the shopping is done. I need to use the list while at the grocery store in order to get an end result. Similarly, the <code>Time.now</code> task is an instruction for the Elm runtime to find the current time, but the instruction does not do anything until it is turned into a command and returned in a branch of <code>update</code>. Elm is running all the errands with the outside world here, we only need to make sure the command gets returned.</p>
 <p>So to use a task, we need to turn it into a command. There are two ways to do this: <code>Task.perform</code> and <code>Task.attempt</code>. As you might guess from the naming, <code>perform</code> simply does the thing, while <code>attempt</code> has an expectation of failure involved. In our case, <code>Time.now</code> cannot really fail, so let’s use perform.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Time</span> exposing (<span class="dt">Time</span>)
-<span class="kw">import </span><span class="dt">Task</span>
-
-<span class="kw">type</span> <span class="dt">Msg</span> <span class="fu">=</span> <span class="dt">TimeUpdated</span> <span class="dt">Time</span>
-
-getTime <span class="fu">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span>
-getTime <span class="fu">=</span>
-    Time.now
-        <span class="fu">|&gt;</span> Task.perform <span class="dt">TimeUpdated</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Time</span> exposing (<span class="dt">Time</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Task</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Msg</span> <span class="ot">=</span> <span class="dt">TimeUpdated</span> <span class="dt">Time</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>getTime <span class="op">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>getTime <span class="ot">=</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    Time.now</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Task.perform <span class="dt">TimeUpdated</span></span></code></pre></div>
 <p>We can use the <code>getTime</code> command just like any other now and when it completes, it results in a <code>TimeUpdated</code> message with the current time. Great!</p>
 <p>What about tasks that can fail? Let’s use <code>Http.get</code> as an example. There are plenty of ways for an HTTP request to fail, ranging from network issues to expired authentication tokens. These are all categorized under the <code>Http.Error</code> type. If you’ve made HTTP calls in Elm before, you have probably used <code>Http.send</code> to convert the request to a <code>Cmd Msg</code>. Instead of doing that, let’s take a look at how we can do the same using <code>Http.toTask</code>. For simplicity’s sake we will use <code>getString</code>, which does not need a decoder.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Http</span>
-<span class="kw">import </span><span class="dt">Task</span> exposing (<span class="dt">Task</span>)
-
-<span class="co">-- The message is just like usual, containing a result</span>
-<span class="kw">type</span> <span class="dt">Msg</span> <span class="fu">=</span> <span class="dt">GotResponse</span> (<span class="dt">Result</span> <span class="dt">Http.Error</span> <span class="dt">String</span>)
-
-<span class="co">-- Here we are defining the task</span>
-getResponseTask <span class="fu">:</span> <span class="dt">Task</span> <span class="dt">Http.Error</span> <span class="dt">String</span>
-getResponseTask <span class="fu">=</span>
-    Http.getString <span class="st">&quot;https://jsonplaceholder.typicode.com/posts/1&quot;</span>
-        <span class="fu">|&gt;</span> Http.toTask
-
-<span class="co">-- And here we turn the task into a regular old command</span>
-getResponseCmd <span class="fu">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span>
-getResponseCmd <span class="fu">=</span>
-    getResponseTask
-        <span class="fu">|&gt;</span> Task.attempt <span class="dt">GotResponse</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Http</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Task</span> exposing (<span class="dt">Task</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- The message is just like usual, containing a result</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Msg</span> <span class="ot">=</span> <span class="dt">GotResponse</span> (<span class="dt">Result</span> <span class="dt">Http.Error</span> <span class="dt">String</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Here we are defining the task</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>getResponseTask <span class="op">:</span> <span class="dt">Task</span> <span class="dt">Http.Error</span> <span class="dt">String</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>getResponseTask <span class="ot">=</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    Http.getString <span class="st">&quot;https://jsonplaceholder.typicode.com/posts/1&quot;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Http.toTask</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- And here we turn the task into a regular old command</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>getResponseCmd <span class="op">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>getResponseCmd <span class="ot">=</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    getResponseTask</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Task.attempt <span class="dt">GotResponse</span></span></code></pre></div>
 <p>We could have put the whole thing in a single pipeline, of course:</p>
 <pre><code>Http.getString &quot;https://jsonplaceholder.typicode.com/posts/1&quot;
     |&gt; Http.toTask
@@ -89,36 +89,38 @@ getResponseCmd <span class="fu">=</span>
 <h2 id="chaining-tasks">Chaining tasks</h2>
 <p>Now that we’ve established how we can use single tasks on their own, it is time to use them for their true purpose: effects depending on others. For this we will use a function called <code>andThen</code>. Let’s see what it looks like.</p>
 <p>From the <a href="http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Task#andThen">official documentation</a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">andThen <span class="fu">:</span> (a <span class="ot">-&gt;</span> <span class="dt">Task</span> x b) <span class="ot">-&gt;</span> <span class="dt">Task</span> x a <span class="ot">-&gt;</span> <span class="dt">Task</span> x b</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>andThen <span class="op">:</span> (a <span class="ot">-&gt;</span> <span class="dt">Task</span> x b) <span class="ot">-&gt;</span> <span class="dt">Task</span> x a <span class="ot">-&gt;</span> <span class="dt">Task</span> x b</span></code></pre></div>
 <p>“Chain together a task and a callback. The first task will run, and if it is successful, you give the result to the callback resulting in another task. This task then gets run.”</p>
 <p>Okay, maybe using the tasks from the previous chapter will make this clearer. Let’s imagine we have an API where we can ask for events from the past hour by providing a timestamp of “one hour ago”. This example doesn’t show the imports, decoders etc. to keep it down to the point.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">getEventsFromPastHour <span class="fu">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span>
-getEventsFromPastHour <span class="fu">=</span>
-    Time.now
-        <span class="fu">|&gt;</span> Task.andThen
-            (\currentTime <span class="ot">-&gt;</span>
-                getEventsFrom (currentTime <span class="fu">-</span> Time.hour)
-            )
-        <span class="fu">|&gt;</span> Task.attempt <span class="dt">GotResult</span>
-
-
-getEventsFrom <span class="fu">:</span> <span class="dt">Time</span> <span class="ot">-&gt;</span> <span class="dt">Task</span> <span class="dt">Http.Error</span> (<span class="dt">List</span> <span class="dt">Event</span>)
-getEventsFrom time <span class="fu">=</span>
-    Http.get (apiUrl <span class="fu">++</span> <span class="st">&quot;?from=&quot;</span> <span class="fu">++</span> toString time) eventsListDecoder
-        <span class="fu">|&gt;</span> Http.toTask</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>getEventsFromPastHour <span class="op">:</span> <span class="dt">Cmd</span> <span class="dt">Msg</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>getEventsFromPastHour <span class="ot">=</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Time.now</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Task.andThen</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            (\currentTime <span class="ot">-&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                getEventsFrom (currentTime <span class="op">-</span> Time.hour)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Task.attempt <span class="dt">GotResult</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>getEventsFrom <span class="op">:</span> <span class="dt">Time</span> <span class="ot">-&gt;</span> <span class="dt">Task</span> <span class="dt">Http.Error</span> (<span class="dt">List</span> <span class="dt">Event</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>getEventsFrom time <span class="ot">=</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    Http.get (apiUrl <span class="op">++</span> <span class="st">&quot;?from=&quot;</span> <span class="op">++</span> toString time) eventsListDecoder</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">|&gt;</span> Http.toTask</span></code></pre></div>
 <p>Let’s try to put this in words.</p>
 <ul>
-<li>Find out what time it is</li>
+<li>Find out what time it is
+<ul>
 <li>And then, ask for events from an hour before the current time</li>
+</ul></li>
 <li>When done, tell me how it went</li>
 </ul>
 <p>And again, in Elm code:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">Time.now
-    <span class="fu">|&gt;</span> Task.andThen
-        (\currentTime <span class="ot">-&gt;</span>
-            getEventsFrom (currentTime <span class="fu">-</span> Time.hour)
-        )
-    <span class="fu">|&gt;</span> Task.attempt <span class="dt">GotResult</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Time.now</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">|&gt;</span> Task.andThen</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        (\currentTime <span class="ot">-&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            getEventsFrom (currentTime <span class="op">-</span> Time.hour)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">|&gt;</span> Task.attempt <span class="dt">GotResult</span></span></code></pre></div>
 <p>A full compilable example of this is again <a href="https://ellie-app.com/3ZsdCNsjVa1/0">on Ellie</a>. Sadly I couldn’t find a suitable open API to showcase this, but you can see the requests in your browser dev tools.</p>
 
     <div class="post-footer">

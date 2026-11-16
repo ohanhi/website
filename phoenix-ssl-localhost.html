@@ -46,25 +46,25 @@
 <p>Here’s how you can enable SSL on Elixir Phoenix in dev mode.</p>
 <h2 id="get-a-certificate">1. Get a certificate</h2>
 <p>For development purposes, you can generate a self-signed certificate with the following commands:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># generate key</span>
-$ <span class="ex">openssl</span> genrsa -out localhost.key 2048
-<span class="co"># generate cert</span>
-$ <span class="ex">openssl</span> req -new -x509 -key localhost.key -out localhost.cert -days 3650 -subj /CN=localhost</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate key</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> openssl genrsa <span class="at">-out</span> localhost.key 2048</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># generate cert</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> openssl req <span class="at">-new</span> <span class="at">-x509</span> <span class="at">-key</span> localhost.key <span class="at">-out</span> localhost.cert <span class="at">-days</span> 3650 <span class="at">-subj</span> /CN=localhost</span></code></pre></div>
 <p>You can of course also use <a href="https://letsencrypt.org/">Letsencrypt</a> for a free signed certificate.</p>
 <h2 id="copy-the-key-and-cert-into-your-project">2. Copy the key and cert into your project</h2>
 <p>Put them in a directory called <code>priv/keys/</code>.</p>
 <h2 id="set-up-the-config">3. Set up the config</h2>
 <p>In your <code>config/dev.exs</code> file:</p>
-<div class="sourceCode"><pre class="sourceCode elixir"><code class="sourceCode elixir">config <span class="va">:phoenix_oauth2_mock_server</span>, <span class="cn">PhoenixOauth2MockServer</span><span class="op">.</span><span class="cn">Endpoint</span>,
-  <span class="va">http:</span> [<span class="va">port:</span> <span class="dv">4000</span>],
-  <span class="va">https:</span> [<span class="va">port:</span> <span class="dv">4443</span>,
-          <span class="va">otp_app:</span> <span class="va">:phoenix_oauth2_mock_server</span>,
-          <span class="va">keyfile:</span> <span class="st">&quot;priv/keys/localhost.key&quot;</span>,
-          <span class="va">certfile:</span> <span class="st">&quot;priv/keys/localhost.cert&quot;</span>],
-  <span class="va">debug_errors:</span> <span class="cn">true</span>,
-  <span class="va">code_reloader:</span> <span class="cn">true</span>,
-  <span class="va">check_origin:</span> <span class="cn">false</span>,
-  <span class="va">watchers:</span> [<span class="va">node:</span> [<span class="st">&quot;node_modules/brunch/bin/brunch&quot;</span>, <span class="st">&quot;watch&quot;</span>, <span class="st">&quot;--stdin&quot;</span>]]</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode elixir"><code class="sourceCode elixir"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>config <span class="va">:phoenix_oauth2_mock_server</span>, <span class="cn">PhoenixOauth2MockServer</span><span class="op">.</span><span class="cn">Endpoint</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="va">http:</span> <span class="ot">[</span><span class="va">port:</span> <span class="dv">4000</span><span class="ot">]</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">https:</span> <span class="ot">[</span><span class="va">port:</span> <span class="dv">4443</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="va">otp_app:</span> <span class="va">:phoenix_oauth2_mock_server</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="va">keyfile:</span> <span class="st">&quot;priv/keys/localhost.key&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="va">certfile:</span> <span class="st">&quot;priv/keys/localhost.cert&quot;</span><span class="ot">]</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="va">debug_errors:</span> <span class="cn">true</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="va">code_reloader:</span> <span class="cn">true</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">check_origin:</span> <span class="cn">false</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="va">watchers:</span> <span class="ot">[</span><span class="va">node:</span> <span class="ot">[</span><span class="st">&quot;node_modules/brunch/bin/brunch&quot;</span>, <span class="st">&quot;watch&quot;</span>, <span class="st">&quot;--stdin&quot;</span><span class="ot">]]</span></span></code></pre></div>
 <p><strong>Done!</strong></p>
 
     <div class="post-footer">
