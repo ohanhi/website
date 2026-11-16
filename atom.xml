@@ -26,7 +26,7 @@
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">March 1, 2019</p>
 </div>
@@ -267,7 +267,8 @@
 <ul>
 <li>We know the shape of the app state (that there is a <code>yourName</code>)</li>
 <li>We are certain about the name and type of the action (that there is a <code>NameChanged</code> and it expects a single string)</li>
-</ul>]]></summary>
+</ul>
+]]></summary>
 </entry>
 <entry>
     <title>Tasks in Modern Elm</title>
@@ -284,7 +285,7 @@
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">February 9, 2018</p>
 </div>
@@ -384,7 +385,8 @@
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            getEventsFrom (currentTime <span class="op">-</span> Time.hour)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">|&gt;</span> Task.attempt <span class="dt">GotResult</span></span></code></pre></div>
-<p>A full compilable example of this is again <a href="https://ellie-app.com/3ZsdCNsjVa1/0">on Ellie</a>. Sadly I couldn’t find a suitable open API to showcase this, but you can see the requests in your browser dev tools.</p>]]></summary>
+<p>A full compilable example of this is again <a href="https://ellie-app.com/3ZsdCNsjVa1/0">on Ellie</a>. Sadly I couldn’t find a suitable open API to showcase this, but you can see the requests in your browser dev tools.</p>
+]]></summary>
 </entry>
 <entry>
     <title>Check palindromes in Elm</title>
@@ -403,7 +405,7 @@
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">October 20, 2017</p>
 </div>
@@ -457,7 +459,8 @@
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            List.reverse justLetters</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    justLetters <span class="op">==</span> lettersInReverse</span></code></pre></div>
-<p>The entire code can be found here: <a href="https://github.com/ohanhi/elm-quicks/tree/master/day-01">day-01</a>.</p>]]></summary>
+<p>The entire code can be found here: <a href="https://github.com/ohanhi/elm-quicks/tree/master/day-01">day-01</a>.</p>
+]]></summary>
 </entry>
 <entry>
     <title>Elm and the unknown</title>
@@ -476,7 +479,7 @@
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">May 11, 2017</p>
 </div>
@@ -641,7 +644,8 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> elm-install</span></code></pre></div>
 <p>I shouldn’t even have to point out that using elm-ffi is a very easy way to make your Elm application unsafe. Only use it if you really deem it necessary.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>There are real use cases to reach out to the JavaScript land in almost any larger Elm application. Most of the time ports are nice enough to write and use. There are more than one way to handle interop, however. I hope this article fleshed out the situation nicely and helps you weigh out the options.</p>]]></summary>
+<p>There are real use cases to reach out to the JavaScript land in almost any larger Elm application. Most of the time ports are nice enough to write and use. There are more than one way to handle interop, however. I hope this article fleshed out the situation nicely and helps you weigh out the options.</p>
+]]></summary>
 </entry>
 <entry>
     <title>Introduction to data structures</title>
@@ -660,7 +664,7 @@
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">April 21, 2017</p>
 </div>
@@ -836,7 +840,8 @@ In the drawing below, the blue one is the existing list with items always linkin
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>newWords <span class="op">:</span> <span class="dt">Array</span> <span class="dt">String</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>newWords <span class="ot">=</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    Array.set <span class="dv">1</span> <span class="st">&quot;you!&quot;</span> <span class="fu">words</span> <span class="co">-- == Array.fromList [ &quot;Hello&quot;, &quot;you!&quot; ]</span></span></code></pre></div>]]></summary>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    Array.set <span class="dv">1</span> <span class="st">&quot;you!&quot;</span> <span class="fu">words</span> <span class="co">-- == Array.fromList [ &quot;Hello&quot;, &quot;you!&quot; ]</span></span></code></pre></div>
+]]></summary>
 </entry>
 <entry>
     <title>From Jekyll to Hakyll</title>
@@ -853,7 +858,7 @@ In the drawing below, the blue one is the existing list with items always linkin
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">April 17, 2017</p>
 </div>
@@ -961,7 +966,8 @@ In the drawing below, the blue one is the existing list with items always linkin
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">Success!</span> Project is published and running at ohanhi.com</span></code></pre></div>
 <p>Super nice!</p>
-<p><strong>PS.</strong> With this transition, I also added the Disqus comment section to all posts. Feel free to give me pointers on my Haskell on there. :)</p>]]></summary>
+<p><strong>PS.</strong> With this transition, I also added the Disqus comment section to all posts. Feel free to give me pointers on my Haskell on there. :)</p>
+]]></summary>
 </entry>
 <entry>
     <title>Elm Decoders and Secret Spy Messages</title>
@@ -978,7 +984,7 @@ In the drawing below, the blue one is the existing list with items always linkin
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">January 24, 2017</p>
 </div>
@@ -1093,7 +1099,8 @@ Elm.SecretMessage.embed(document.getElementById('secretmsg'));
 <pre><code>map2 (\name weight -&gt; { name = name, weight = weight })
     field1Decoder
     field2Decoder</code></pre>
-<p>In essence, <code>Dog</code> is being used as a <em>function to construct the record</em>. All type aliases in Elm can be used this way, in any context!</p>]]></summary>
+<p>In essence, <code>Dog</code> is being used as a <em>function to construct the record</em>. All type aliases in Elm can be used this way, in any context!</p>
+]]></summary>
 </entry>
 <entry>
     <title>The Why and When of Choosing Elm</title>
@@ -1112,7 +1119,7 @@ Elm.SecretMessage.embed(document.getElementById('secretmsg'));
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">January 13, 2017</p>
 </div>
@@ -1296,7 +1303,8 @@ Longer project (&gt; 2 months)
 Especially helpful for bigger frontend teams
 </li>
 </ul>
-</details>]]></summary>
+</details>
+]]></summary>
 </entry>
 <entry>
     <title>The Why and When of Choosing Elm</title>
@@ -1313,7 +1321,7 @@ Especially helpful for bigger frontend teams
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">January 10, 2017</p>
 </div>
@@ -1422,7 +1430,8 @@ Especially helpful for bigger frontend teams
 <li>Bespoke design</li>
 <li>Longer project (&gt; 2 months)</li>
 <li>Especially helpful for bigger frontend teams</li>
-</ul>]]></summary>
+</ul>
+]]></summary>
 </entry>
 <entry>
     <title>Base for a game in Elm 0.17</title>
@@ -1441,7 +1450,7 @@ Especially helpful for bigger frontend teams
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">May 18, 2016</p>
 </div>
@@ -1777,7 +1786,8 @@ Especially helpful for bigger frontend teams
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;elm-lang/keyboard&quot;</span><span class="fu">:</span> <span class="st">&quot;1.0.0 &lt;= v &lt; 2.0.0&quot;</span></span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;elm-version&quot;</span><span class="fu">:</span> <span class="st">&quot;0.17.0 &lt;= v &lt; 0.18.0&quot;</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>]]></summary>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+]]></summary>
 </entry>
 <entry>
     <title>The future of Elm + React Native</title>
@@ -1796,7 +1806,7 @@ Especially helpful for bigger frontend teams
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">March 21, 2016</p>
 </div>
@@ -1869,7 +1879,8 @@ Hacking on <a href="https://twitter.com/elmlang"><span class="citation" data-cit
 <p>The coolest part of all this is that using the <a href="https://github.com/NoRedInk/elm-ops-tooling#elm_self_publish">self-publishing script</a> by Noah, people can now actually use Elm Native UI as a normal Elm package! You can init a React Native project of your own, then install the packages and start working on a mobile app in Elm. All the steps needed to start your own Elm Native UI project are documented in detail in the <a href="https://github.com/elm-native-ui/elm-native-ui#get-it-running">Get it running</a> section of the readme.</p>
 <h2 id="whats-left-to-do">What’s left to do</h2>
 <p>Apart from getting the official compiler and core to support NativeUi, there are a few other things to sort out still. Navigation is still an <a href="https://github.com/elm-native-ui/elm-native-ui/issues/11">open issue</a>, and there are some unchecked things in the <a href="https://github.com/elm-native-ui/elm-native-ui#to-do">To do</a>, among other things.</p>
-<p>More than that though, I can’t really say if/when Elm Native UI could be published into <a href="http://package.elm-lang.org/">package.elm-lang.org</a>. Due to the <a href="https://facebook.github.io/react/blog/2015/05/22/react-native-release-process.html">volatile nature</a> of React Native itself, the published package would be very difficult to keep up to date and as high quality as expected from anything in the Elm package catalogue. For now, I think the best we can do is to wait and see how React Native evolves. Maybe in six months or a year, things will be more stable.</p>]]></summary>
+<p>More than that though, I can’t really say if/when Elm Native UI could be published into <a href="http://package.elm-lang.org/">package.elm-lang.org</a>. Due to the <a href="https://facebook.github.io/react/blog/2015/05/22/react-native-release-process.html">volatile nature</a> of React Native itself, the published package would be very difficult to keep up to date and as high quality as expected from anything in the Elm package catalogue. For now, I think the best we can do is to wait and see how React Native evolves. Maybe in six months or a year, things will be more stable.</p>
+]]></summary>
 </entry>
 <entry>
     <title>Why Elm</title>
@@ -1888,7 +1899,7 @@ Hacking on <a href="https://twitter.com/elmlang"><span class="citation" data-cit
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">March 2, 2016</p>
 </div>
@@ -1945,7 +1956,8 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
 <li>Go to 1.</li>
 </ol>
 <p>When the code compiles, it will work. There will not be any crashes. The only things that can go wrong are application logic. Application logic is what we should be focused on at all times, but many languages don’t let us do that. And since Elm enforces immutability and functional style, it is in fact very hard to cause regressions that you don’t know about.</p>
-<p>I find that when coding Elm, I get to spend most of my time thinking about the actual problem that I am solving. Whereas when coding JavaScript, I spend my time debugging and only every once in a while get to think about the actual problem.</p>]]></summary>
+<p>I find that when coding Elm, I get to spend most of my time thinking about the actual problem that I am solving. Whereas when coding JavaScript, I spend my time debugging and only every once in a while get to think about the actual problem.</p>
+]]></summary>
 </entry>
 <entry>
     <title>Writing a React Native app in Elm</title>
@@ -1964,7 +1976,7 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">February 23, 2016</p>
 </div>
@@ -2044,7 +2056,8 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
 <p>The repository is open source on GitHub: <a href="https://github.com/elm-native-ui/elm-native-ui/">Elm Native UI</a></p>
 <h2 id="whats-next">What’s next</h2>
 <p>I will write another post later on about the future of Elm Native UI. There are some interesting developments, as with <a href="https://github.com/facebook/react-native/releases/tag/v0.21.0-rc">React Native 0.21</a> the much more reactive NavigationExperimental is becoming a reality.</p>
-<p><strong>Closes <a href="https://github.com/elm-native-ui/elm-native-ui/issues/2">#2</a></strong></p>]]></summary>
+<p><strong>Closes <a href="https://github.com/elm-native-ui/elm-native-ui/issues/2">#2</a></strong></p>
+]]></summary>
 </entry>
 <entry>
     <title>SSL on localhost with Phoenix Framework</title>
@@ -2061,7 +2074,7 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">February 18, 2016</p>
 </div>
@@ -2105,7 +2118,8 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="va">code_reloader:</span> <span class="cn">true</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="va">check_origin:</span> <span class="cn">false</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="va">watchers:</span> <span class="ot">[</span><span class="va">node:</span> <span class="ot">[</span><span class="st">&quot;node_modules/brunch/bin/brunch&quot;</span>, <span class="st">&quot;watch&quot;</span>, <span class="st">&quot;--stdin&quot;</span><span class="ot">]]</span></span></code></pre></div>
-<p><strong>Done!</strong></p>]]></summary>
+<p><strong>Done!</strong></p>
+]]></summary>
 </entry>
 <entry>
     <title>Learning FP the hard way</title>
@@ -2124,7 +2138,7 @@ Me writing Haskell: 30% test coverage. Scala: 60% test coverage. Ruby: 97% test 
   <img class="profile-pic" src="/img/profile_tiny.jpg" alt="">
   <h3 class="author">
     <span>Ossi Hanhinen</span>
-    <a href="https://twitter.com/ohanhi">@ohanhi</a>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
   </h3>
   <p class="post-date">June 10, 2015</p>
 </div>
@@ -2372,7 +2386,8 @@ Mind.. Blown. Well, for me at least.</p>
 <span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>  <span class="kw">in</span>  Signal.sampleOn delta tuples</span>
 <span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>main <span class="op">:</span> <span class="dt">Signal</span> <span class="dt">Element</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> Signal.map <span class="fu">show</span> (Signal.foldp update initShip inputSignal)</span></code></pre></div>]]></summary>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>main <span class="ot">=</span> Signal.map <span class="fu">show</span> (Signal.foldp update initShip inputSignal)</span></code></pre></div>
+]]></summary>
 </entry>
 
 </feed>
