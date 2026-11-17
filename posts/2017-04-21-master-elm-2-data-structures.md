@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> Introduction to data structures - Ossi Hanhinen</title>
+  <meta name="description" content="Introduction to data structures">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <section class="contain post">
+    <a href="../" class="back-link">&laquo; Home</a>
+
+    <header class="post-header">
+  
+  <h3>Master Elm pt. 2</h3>
+  
+  <h1 class="post-title">Introduction to data structures</h1>
+  
+</header>
+<div class="post-meta">
+  <img class="profile-pic" src="../img/profile_tiny.jpg" alt>
+  <h3 class="author">
+    <span>Ossi Hanhinen</span>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
+  </h3>
+  <p class="post-date">April 21, 2017</p>
+</div>
+
+<hr>
+
+<h3>Read this to</h3>
+<ul class="post-reasons">
+  
+  <li>get an overview on all of the basic data structures in Elm</li>
+  
+</ul>
+
+<h3>I expect you to know</h3>
+<ul class="post-prereqs">
+  
+  <li>nothing in particular</li>
+  
+</ul>
+
+<hr> <p>Most people come to Elm from JavaScript, and traditionally JavaScript has really only had two data structures, object and array. Today I will go through all of the basic data structures in Elm, telling when to use them and comparing them to JavaScript as applicable.</p>
+<p><em>Note: the double dash <code>--</code> starts a comment in Elm for the rest of the line, like <code>//</code> in JavaScript.</em></p>
+<p>I suggest you to read these in order, but here’s a quick navigation just in case:</p>
+<ul>
+<li><a href="#record">Record</a></li>
+<li><a href="#tuple">Tuple</a></li>
+<li><a href="#list">List</a></li>
+<li><a href="#set">Set</a></li>
+<li><a href="#dict">Dict</a></li>
+<li><a href="#array">Array</a></li>
+</ul>
+<h2 id="record">Record</h2>
+<p>Records are the closest thing to the object in JavaScript, but they are statically typed:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dog <span class="ot">=</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    { name <span class="ot">=</span> <span class="st">&quot;Fluffy&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    , mother <span class="ot">=</span> <span class="st">&quot;Muffin&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<p>The type of <code>dog</code> here is now defined, even though I didn’t specify anything. This record has two <code>String</code> fields: <code>name</code> and <code>mother</code>. There’s no way of changing it anymore. The order of the fields is not relevant to the type.</p>
+<p>Usually we write out the type definition, too. This might be done like so:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> alias <span class="dt">Dog</span> <span class="ot">=</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    { mother <span class="op">:</span> <span class="dt">String</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    , name <span class="op">:</span> <span class="dt">String</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<p>Note that the record was using <code>=</code>, and the type alias is using <code>:</code>. In Elm, the colon <code>:</code> reads as “has the type”. Another thing to note is that <code>type alias</code> is literally an alias for a type. These are always interchangeable:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- type annotation says:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- &quot;dogA has the type Dog&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dogA <span class="op">:</span> <span class="dt">Dog</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>dogA <span class="ot">=</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    { name <span class="ot">=</span> <span class="st">&quot;Fluffy&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    , mother <span class="ot">=</span> <span class="st">&quot;Muffin&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- type annotation says:</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- &quot;dogB has the type (record with two String fields, mother and name)&quot;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>dogB <span class="op">:</span> { mother <span class="op">:</span> <span class="dt">String</span>, name <span class="op">:</span> <span class="dt">String</span> }</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>dogB <span class="ot">=</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    { name <span class="ot">=</span> <span class="st">&quot;Fluffy&quot;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    , mother <span class="ot">=</span> <span class="st">&quot;Muffin&quot;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>sameDogs <span class="ot">=</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    dogA <span class="op">==</span> dogB <span class="co">-- True</span></span></code></pre></div>
+<p>The two parts of syntax related to records are getting and setting:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Getting</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dogA<span class="op">.</span>name <span class="co">-- &quot;Fluffy&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- or</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">.</span>name dogA <span class="co">-- &quot;Fluffy&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- Setting (always returns a new record)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>{ dogA <span class="op">|</span> name <span class="ot">=</span> <span class="st">&quot;Fluuuffy&quot;</span> } <span class="co">-- { name = &quot;Fluuuffy&quot;, mother = &quot;Muffin&quot; }</span></span></code></pre></div>
+<p>Remember that you can also pattern match on records!</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- type annotation says:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- dogToString is a function from Dog to String</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dogToString <span class="op">:</span> <span class="dt">Dog</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dogToString ({ name } as dog) <span class="ot">=</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;The name of this dog is &quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">++</span> name</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">++</span> <span class="st">&quot; and all of the data is: &quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">++</span> toString dog</span></code></pre></div>
+<h2 id="tuple">Tuple</h2>
+<p>Tuples are basically records without field names. Like records, the fields can be of varying types: one piece of a tuple can be a number while the other is a string. They are quite common in Elm, since they are very handy to create on the fly.</p>
+<p>Tuples can look a little confusing at first, since they are constructed with parentheses <code>()</code> and the items are separated with commas <code>,</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- info has the type &quot;tuple of Int, String and String&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>info <span class="op">:</span> ( <span class="dt">Int</span>, <span class="dt">String</span>, <span class="dt">String</span> )</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>info <span class="ot">=</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ( <span class="dv">42</span>, <span class="st">&quot;Life&quot;</span>, <span class="st">&quot;everything&quot;</span> )</span></code></pre></div>
+<p>You can pattern match on tuples too:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>getComment <span class="op">:</span> ( <span class="dt">Bool</span>, <span class="dt">String</span> ) <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>getComment pair <span class="ot">=</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> pair <span class="kw">of</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        ( <span class="dt">True</span>, word ) <span class="ot">-&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Oh yes, &quot;</span> <span class="op">++</span> word <span class="op">++</span> <span class="st">&quot; it is!&quot;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        ( <span class="dt">False</span>, word ) <span class="ot">-&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;Nope, &quot;</span> <span class="op">++</span> word <span class="op">++</span> <span class="st">&quot; isn't right.&quot;</span></span></code></pre></div>
+<p>Note: If you see the empty tuple <code>()</code> somewhere, it’s because <code>()</code> holds no information whatsoever, and therefore serves as a type (and value) for certain cases where the contents would be ignored anyway.</p>
+<h2 id="list">List</h2>
+<p><code>List</code>s are the only collection data structure that has any special syntax in Elm. They are quite similar to the JavaScript arrays. However, Elm lists don’t have indices for the items. They are simply sequences of items of a single type.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- dogs has the type &quot;a list containing Dogs&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dogs <span class="op">:</span> <span class="dt">List</span> <span class="dt">Dog</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dogs <span class="ot">=</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    [ fluffy</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    , scruffy</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    ]</span></code></pre></div>
+<p>Lists are written with brackets <code>[]</code> and items within are separated with commas <code>,</code> just like JavaScript arrays.</p>
+<p>Adding an item in front of a list is very efficient, because it doesn’t affect the rest of the list in any way! For the CS folks, Elm lists are immutable linked lists.
+In the drawing below, the blue one is the existing list with items always linking to the next one. The yellow is the new list. As you can see, only the new item <code>"E"</code> had to be added, linking into the previous first item <code>"D"</code>.</p>
+<figure>
+<img src="../img/data-structures/list.jpg" alt="Drawing of a List" />
+<figcaption aria-hidden="true">Drawing of a List</figcaption>
+</figure>
+<p>You can combine (concatenate) two lists with <code>++</code>, and add a single item to the front of a list with <code>::</code> (pronounced cons).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>moreDogs <span class="ot">=</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    sparky ::</span> [ lassie, fifi ] <span class="op">++</span> [ muffin ] <span class="co">-- [ sparky, lassie, fifi, muffin ]</span></span></code></pre></div>
+<p>Lists are the most used collection in Elm. They are very versatile, but if you need to access, and especially update certain items often, you should look at <code>Array</code> and <code>Dict</code>.</p>
+<p>Oh and also, lists are the only collection you can pattern match on! This is very useful for some algorithms.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>getFirstTwo <span class="op">:</span> <span class="dt">List</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> ( <span class="dt">Int</span>, <span class="dt">Int</span> )</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>getFirstTwo list <span class="ot">=</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> list <span class="kw">of</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">-- cons (::) can be used to &quot;deconstruct&quot; a list when pattern matching</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ot">        first :: second ::</span> rest <span class="ot">-&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Just</span> ( first, second )</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        _ <span class="ot">-&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="dt">Nothing</span> <span class="co">-- there weren't enough items in the list</span></span></code></pre></div>
+<h2 id="set">Set</h2>
+<p>Sets are an often overlooked data structure, even though they are very useful in some cases. (Ironically, I missed this section in the original edition of the article, too.) A set is an orderless collection of items, where each item can only appear once. You can also use Set to get only unique values in a List with <code>Set.toList (Set.fromList myList)</code>. Keep in mind the resulting list won’t necessarily be in the same order, however.</p>
+<p>As a practical example, in the lottery game Keno each number can only occur once.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kenoRound <span class="op">:</span> <span class="dt">Set</span> <span class="dt">Int</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>kenoRound <span class="ot">=</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    Set.fromList</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        [ <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">43</span>, <span class="dv">39</span>, <span class="co">-- ...</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        ]</span></code></pre></div>
+<p>Trying to <code>Set.insert 10 kenoRound</code> would return the same set as before, because <code>10</code> was already in the set.</p>
+<p>Set has a whole bunch of interesting functions, such as <code>union</code>, <code>intersect</code> and <code>diff</code>, which are what Venn diagrams were made to depict:</p>
+<figure>
+<img src="../img/data-structures/set-intersection.jpg" alt="Intersection of two sets" />
+<figcaption aria-hidden="true">Intersection of two sets</figcaption>
+</figure>
+<p>In the figure above, the highlighted part is the intersection of the two sets. Union would be all of the yellow and blue set, and difference would be everything in the two sets that is <strong>not</strong> highlighted.</p>
+<p>Note: The core Set can only have <code>comparable</code>s as keys: numbers and strings, really. In a pinch, this might help you: a Set is really just a Dict that uses only the keys, and uses <code>()</code> for all the values. Thus, <a href="http://package.elm-lang.org/packages/eeue56/elm-all-dict/latest"><code>eeue56/elm-all-dict</code></a> can be used for making a Set implementation of your own.</p>
+<h2 id="dict">Dict</h2>
+<p><code>Dict</code> is short for dictionary: the data structure has keywords and values. You can only find a value by its keyword, not the other way around. The keywords also need to be unique within the Dict. This data structure is incredibly useful for storing things like translations, but also collections of records that are referenced by their IDs.</p>
+<p>Here’s a depiction of how data is organized in a Dict:</p>
+<figure>
+<img src="../img/data-structures/dict.jpg" alt="Drawing of a Dict" />
+<figcaption aria-hidden="true">Drawing of a Dict</figcaption>
+</figure>
+<p>This is what it looks like in code:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> alias <span class="dt">Id</span> <span class="ot">=</span> <span class="dt">Int</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>authors <span class="op">:</span> <span class="dt">Dict</span> <span class="dt">Id</span> <span class="dt">Author</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">=</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    Dict.fromList</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        [ ( <span class="dv">0</span>, { name <span class="ot">=</span> <span class="st">&quot;Margaret Atwood&quot;</span> } )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        , ( <span class="dv">1</span>, { name <span class="ot">=</span> <span class="st">&quot;John Irving&quot;</span> } )</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        ]</span></code></pre></div>
+<p>Note that getting a value from a Dict is always an unknown, and because Elm guarantees no runtime exceptions, <code>Dict.get</code> returns a <code>Maybe</code> value.</p>
+<p>Note: The core Dict can only have <code>comparable</code>s as keys: numbers and strings, really. If you need other kinds of keys, check out <a href="http://package.elm-lang.org/packages/eeue56/elm-all-dict/latest"><code>eeue56/elm-all-dict</code></a>!</p>
+<h2 id="array">Array</h2>
+<p>First off, if you are looking to use <code>Array</code>s, use <a href="http://package.elm-lang.org/packages/Skinney/elm-array-exploration/latest"><code>Skinney/elm-array-exploration</code></a>, which will soon replace the current core implementation.</p>
+<p>Array occupies a fixed chunk of the computer’s memory. If you add an item so that the array gets bigger, a new bigger chunk will be allocated somewhere else and then all of the contents are copied over. This makes adding items inefficient. But unlike List, you can efficiently retrieve or update e.g. the 50th item in an Array.</p>
+<p>This is how arrays look like in my mind:</p>
+<figure>
+<img src="../img/data-structures/array.jpg" alt="Drawing of an Array" />
+<figcaption aria-hidden="true">Drawing of an Array</figcaption>
+</figure>
+<p>And this is how it looks in code:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">words</span> <span class="op">:</span> <span class="dt">Array</span> <span class="dt">String</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">words</span> <span class="ot">=</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    Array.fromList [ <span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;world&quot;</span> ]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>newWords <span class="op">:</span> <span class="dt">Array</span> <span class="dt">String</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>newWords <span class="ot">=</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    Array.set <span class="dv">1</span> <span class="st">&quot;you!&quot;</span> <span class="fu">words</span> <span class="co">-- == Array.fromList [ &quot;Hello&quot;, &quot;you!&quot; ]</span></span></code></pre></div>
+
+
+  </section>
+  <footer>
+    <a href="https://github.com/ohanhi">GitHub</a>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-58943555-1');ga('send','pageview');
+    </script>
+  </body>
+  </html>

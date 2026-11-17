@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> Writing a React Native app in Elm - Ossi Hanhinen</title>
+  <meta name="description" content="Writing a React Native app in Elm">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <section class="contain post">
+    <a href="../" class="back-link">&laquo; Home</a>
+
+    <header class="post-header">
+  
+  <h3>Elm Native UI</h3>
+  
+  <h1 class="post-title">Writing a React Native app in Elm</h1>
+  
+</header>
+<div class="post-meta">
+  <img class="profile-pic" src="../img/profile_tiny.jpg" alt>
+  <h3 class="author">
+    <span>Ossi Hanhinen</span>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
+  </h3>
+  <p class="post-date">February 23, 2016</p>
+</div>
+
+<hr>
+
+<h3>Read this to</h3>
+<ul class="post-reasons">
+  
+  <li>get an inside look into how Elm Native UI was made</li>
+  
+</ul>
+
+<h3>I expect you to know</h3>
+<ul class="post-prereqs">
+  
+  <li>what React Native is</li>
+  
+  <li>some Elm</li>
+  
+</ul>
+
+<hr> <p>We were at the <a href="https://reactive2015.com/">Reactive 2015</a> conference in Bratislava in November. A lot of people I talked with were interested in Elm, and many asked whether it could be used with a) Node and b) React Native. I knew there was progress on the Node front, but at least <a href="https://twitter.com/rtfeldman">Richard Feldman</a> hadn’t heard anything about React Native being experimented with.</p>
+<p>Me and <a href="http://staltz.com/">André</a> wanted to prove it was possible to write a React Native app using Elm. A weekend of hacking lead to <a href="https://github.com/elm-native-ui/elm-native-ui">Elm Native UI</a> being born.</p>
+<p><a href="https://github.com/elm-native-ui/elm-native-ui"><img src="../img/elm-native-dribbble.png" /></a>
+<small class="caption">Elm Native UI <a href="https://dribbble.com/shots/2383347-Elm-Native-logo">logo</a> by <a href="http://paulyoung.me/">Paul Young</a></small></p>
+<h2 id="what-we-wanted-to-achieve">What we wanted to achieve</h2>
+<p>We wanted to start with something that would be simple enough, but would have at least some of the characteristics of a real application. From the Elm application, we need to output a tree representing React Native components (<code>View</code> and <code>Text</code>). From the React Native side, we need to send events that the Elm app wants to listen to.</p>
+<p>In the end, we opted for the traditional example of increment and decrement buttons and a counter to display the current value. This would demonstrate that both of the vital parts, the output and the input, work as intended.</p>
+<p><img src="../img/rn-elm-2.png" /></p>
+<p>This diagram shows how the whole thing works. Ideally, the Elm application is the only thing a developer needs to work on. React Native works as a “backend” of sorts, relaying messages to and from the native app side to the Elm side.</p>
+<h2 id="overcoming-the-elm-border-control">Overcoming the Elm border control</h2>
+<p>Elm’s <code>main</code> function is special in that it only allows a handful of types, namely <code>Element</code>, <code>Html</code>, or a signal of either. This means we can’t easily have the Elm application produce a component tree (like the virtual DOM) for React Native to pick up as the rendered component tree. Unless we use <a href="http://elm-lang.org/guide/interop#ports">ports</a>, of course.</p>
+<p>If you’ve worked with ports before, you may know that they have a predefined set of <a href="http://elm-lang.org/guide/interop#customs-and-border-protection">allowed types</a> themselves. The listing mentions Records as one of the allowed types, so my first intuition was to create a self-referential type for the VTree. A <code>Node</code> can have a list of <code>Node</code>s for children. Sadly, this is forbidden in Elm. Records need to have finite boundaries, and a tree structure is obviously not finite. So instead, I created a tree structure as a union type:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">VTree</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">VNode</span> <span class="dt">String</span> (<span class="dt">List</span> <span class="dt">RnStyle.Style</span>) (<span class="dt">List</span> <span class="dt">VTree</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">VText</span> (<span class="dt">List</span> <span class="dt">RnStyle.Style</span>) (<span class="dt">String</span>, <span class="dt">EventHandlerRef</span>) <span class="dt">String</span></span></code></pre></div>
+<p>To pass the thing to the React Native side, we decided to go with plain JSON values, since they exhibit all the qualities we needed and are allowed through ports:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- &quot;main&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>port viewTree <span class="op">:</span> <span class="dt">Signal</span> <span class="dt">Json.Encode.Value</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>port viewTree <span class="ot">=</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  NativeApp.start { model <span class="ot">=</span> model, view <span class="ot">=</span> view, update <span class="ot">=</span> update, <span class="fu">init</span> <span class="ot">=</span> <span class="fu">init</span> }</span></code></pre></div>
+<p><strong>Note:</strong> Evan Czaplicki, the creator of Elm, contacted me after this post was first published. He said “Supporting a new platform is something that can get special help from the language”, so I am hopeful this will become even nicer in the future!</p>
+<h2 id="ping-back">Ping back</h2>
+<p>The second big challenge was user interaction. An application ain’t much if it cannot react to any user input, after all. In elm-html you set up bindings in the view like so:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Html.button</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  [ someAttribute</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  , Html.Events.onClick address</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  [ Html.text <span class="st">&quot;Click me!&quot;</span> ]</span></code></pre></div>
+<p>We figured we should try and reproduce a somewhat similar API, but couldn’t quite get there. We have:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>RN.text</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  [ someAttribute ]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  (RN.onPress address action)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;Press me!&quot;</span></span></code></pre></div>
+<p>The reason why the event handler is separate from other attributes is that the elm-html <code>Attribute</code> is a Virtual DOM JavaScript property under the hood. Our attributes are (for now) simply styles, as you could see from the type definition:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">VTree</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> <span class="dt">VNode</span> <span class="dt">String</span> (<span class="dt">List</span> <span class="dt">RnStyle.Style</span>) (<span class="dt">List</span> <span class="dt">VTree</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">|</span> <span class="dt">VText</span> (<span class="dt">List</span> <span class="dt">RnStyle.Style</span>) (<span class="dt">String</span>, <span class="dt">EventHandlerRef</span>) <span class="dt">String</span></span></code></pre></div>
+<p>Also, since the React Native <code>Text</code> component only allows a single text child, we reflect that in the API.</p>
+<p>To bridge the gap between the Elm generated VTree and React Native, there are two things at play:</p>
+<ol type="1">
+<li>a React Native <a href="https://github.com/elm-native-ui/elm-native-ui/blob/master/index.ios.js">app</a> that initializes the Elm app with <code>Elm.worker</code> and subscribes to its <code>vtreeOutput</code> port, and<br></li>
+<li>an “Elm Native” <a href="https://github.com/elm-native-ui/elm-native-ui/blob/master/ReactNative/Native/ReactNative.js">JS module</a> that sets up the listeners for the Elm runtime.</li>
+</ol>
+<p>Now the “Elm Native” is something you would generally try to avoid when coding Elm, since there are no guarantees of safety. Also, the way they work is supposed to change in the very near future. But just to clear it up, from the Elm point of view, <em>native</em> refers to JavaScript, which is what the Elm runtime runs on. From the React Native point of view however, <em>native</em> is the Objective-C/Java code that runs on a mobile device. This naming thing is also the reason the project is called <strong>Elm Native UI</strong> and not simply Elm Native.</p>
+<p>How the event listeners work under the hood is a bit funky at the moment. The Elm Native module utilizes handler IDs to keep track of them and pass events to the Elm runtime. That is why the <code>on</code> function returns an <code>EventHandlerRef</code>, which is essentially an integer.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>on <span class="op">:</span> <span class="dt">Json.Decode.Decoder</span> a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Signal.Message</span>) <span class="ot">-&gt;</span> <span class="dt">EventHandlerRef</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>on decoder toMessage <span class="ot">=</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Native.ReactNative.on decoder toMessage</span></code></pre></div>
+<p>We are looking to improve this in the future.</p>
+<h2 id="did-it-work-out">Did it work out?</h2>
+<p>Yes it did. There are still big things to overcome, such as the <a href="https://facebook.github.io/react-native/docs/navigator.html#content">Navigator</a> (though that should change soon) and event handler thing. But all in all it feels like Elm Native UI could actually be a thing somewhere down the line.</p>
+<p>A resounding thank you goes to all the <a href="https://github.com/elm-native-ui/elm-native-ui/graphs/contributors">contributors</a>!</p>
+<p>Here’s an internetsy representation of what we’ve accomplished thus far: a GIF.</p>
+<p><img src="../img/elm-native-ui-capture.gif" /></p>
+<p>The repository is open source on GitHub: <a href="https://github.com/elm-native-ui/elm-native-ui/">Elm Native UI</a></p>
+<h2 id="whats-next">What’s next</h2>
+<p>I will write another post later on about the future of Elm Native UI. There are some interesting developments, as with <a href="https://github.com/facebook/react-native/releases/tag/v0.21.0-rc">React Native 0.21</a> the much more reactive NavigationExperimental is becoming a reality.</p>
+<p><strong>Closes <a href="https://github.com/elm-native-ui/elm-native-ui/issues/2">#2</a></strong></p>
+
+
+  </section>
+  <footer>
+    <a href="https://github.com/ohanhi">GitHub</a>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-58943555-1');ga('send','pageview');
+    </script>
+  </body>
+  </html>
