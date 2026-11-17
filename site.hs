@@ -25,7 +25,7 @@ main = hakyll $ do
         compile copyFileCompiler
 
     match "posts/*" $ do
-        route   $ customRoute $ pathToPostName . toFilePath
+        route   $ customRoute $ toFilePath
         compile postCompiler
 
     match "drafts/*" $ do
@@ -79,37 +79,25 @@ postCompiler =
 
 (|>) = flip ($)
 
-
-{- This function keeps the same filename structure I've had with Jekyll:
-/posts/YYYY-MM-DD-post-name.md
--> /post-name.html
--}
-pathToPostName :: String -> String
-pathToPostName path =
-    path
-        |> splitAll "/"
-        |> (\(p : name : _) -> splitExtension name )
-        |> (\(n, e) -> drop 11 n ++ ".html")
-
 --------------------------------------------------------------------------------
 
 feedConfig :: FeedConfiguration
 feedConfig =
     FeedConfiguration
-        { feedTitle = "ohanhi.com"
+        { feedTitle = "ohanhi.dev"
         , feedDescription = "Posts from my personal website."
         , feedAuthorName = "Ossi Hanhinen"
         , feedAuthorEmail = "ossi.hanhinen@gmail.com"
-        , feedRoot = "http://ohanhi.com"
+        , feedRoot = "https://ohanhi.dev"
         }
 
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %-d, %Y"
-      `mappend` constField "base_url" "http://ohanhi.com"
+      `mappend` constField "base_url" "https://ohanhi.dev"
       `mappend` fullTitleField "full_title" False
       `mappend` fullTitleField "twitter_text" True
-      `mappend` twitterUrlField "http://ohanhi.com"
+      `mappend` twitterUrlField "https://ohanhi.dev"
       `mappend` listContextWith "i_expect_you_to_know"
       `mappend` listContextWith "read_this_to"
       `mappend` defaultContext
