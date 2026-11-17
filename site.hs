@@ -106,7 +106,17 @@ postCtx =
     `mappend` twitterUrlField "https://ohanhi.dev"
     `mappend` listContextWith "i_expect_you_to_know"
     `mappend` listContextWith "read_this_to"
+    `mappend` hasItemsField "has_read_this_to" ["read_this_to"]
+    `mappend` hasItemsField "has_i_expect_you_to_know" ["i_expect_you_to_know"]
+    `mappend` hasItemsField "has_reading_info" ["read_this_to", "i_expect_you_to_know"]
     `mappend` defaultContext
+
+-- Defined only if at least one of the given metadata lists is non-empty,
+-- so templates can use it in $if(...)$ (Hakyll has no boolean operators).
+hasItemsField :: String -> [String] -> Context a
+hasItemsField fieldName listNames = field fieldName $ \_ -> do
+  lists <- mapM getList listNames
+  if all null lists then empty else return "true"
 
 twitterUrlField :: String -> Context a
 twitterUrlField baseUrl =

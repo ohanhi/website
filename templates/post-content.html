@@ -16,22 +16,26 @@
   <p class="post-date">$date$</p>
 </div>
 
-$if(read_this_to)$
+$if(has_reading_info)$
 <hr>
 
+$if(has_read_this_to)$
 <h3>Read this to</h3>
 <ul class="post-reasons">
   $for(read_this_to)$
   <li>$body$</li>
   $endfor$
 </ul>
+$endif$
 
+$if(has_i_expect_you_to_know)$
 <h3>I expect you to know</h3>
 <ul class="post-prereqs">
   $for(i_expect_you_to_know)$
   <li>$body$</li>
   $endfor$
 </ul>
+$endif$
 
 <hr>
 $endif$
