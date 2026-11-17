@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> If you're using React, Redux and TypeScript, you would be so happy with Elm! - Ossi Hanhinen</title>
+  <meta name="description" content="If you're using React, Redux and TypeScript, you would be so happy with Elm!">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+  <section class="contain post">
+    <a href="./" class="back-link">&laquo; Home</a>
+
+    <header class="post-header">
+  
+  <h1 class="post-title">If you're using React, Redux and TypeScript, you would be so happy with Elm!</h1>
+  
+</header>
+<div class="post-meta">
+  <img class="profile-pic" src="./img/profile_tiny.jpg" alt>
+  <h3 class="author">
+    <span>Ossi Hanhinen</span>
+    <a href="https://github.com/ohanhi">@ohanhi</a>
+  </h3>
+  <p class="post-date">March 1, 2019</p>
+</div>
+
+<hr>
+
+<h3>Read this to</h3>
+<ul class="post-reasons">
+  
+  <li>see how React, Redux and TypeScript is already quite close to using Elm</li>
+  
+  <li>get to know some things where Elm could help you more than TypeScript</li>
+  
+</ul>
+
+<h3>I expect you to know</h3>
+<ul class="post-prereqs">
+  
+  <li>how it is to work with React and Redux, and some TypeScript</li>
+  
+</ul>
+
+<hr> <h2 id="introduction">Introduction</h2>
+<p>I have used Elm in two client projects spanning about three years total. In my latest project we used React, Redux and TypeScript instead, and that was pretty nice too. This post is meant to be a conversation starter, a thought piece, on “what if we tried Elm for real?” If you’re thinking no one is using Elm, let me point out that companies like <a href="https://github.com/Microsoft/elm-json-tree-view">Microsoft</a>, <a href="https://discourse.elm-lang.org/t/ibm-releases-elm-powered-app/2364">IBM</a> and <a href="https://learningmusic.ableton.com">Ableton</a> have successfully used Elm in production.</p>
+<p>If you’ve used TypeScript in a project already, good for you! You can probably agree that the static types it provides can be a real help when adding new features. And where it really shines is refactoring. Changing function arguments or removing fields from a configuration object in a JavaScript project can be a very risky thing, but the TypeScript compiler can spot many places where things are going wrong. You can be much more confident that the code will work. Now imagine that was the case for every single change in the code base? And you could be 100% certain there are no places left using the old structure once you’re done? That’s what Elm can give you! Furthermore, the compiler will help you go through all the steps needed while adding a feature, but let’s come back to that a bit later.</p>
+<p>Before we begin, I want to emphasize that I am not saying Elm is the best solution in all cases. There are very valid reasons to use React, Redux and TypeScript instead! There are valid reasons even for not using a framework at all. This post just focuses on the lovely things I know from Elm, compared to how the same thing worked in the React project. Do what you love and what feels like the best solution for the problem at hand. 💝</p>
+<h2 id="overview-of-similarities">Overview of similarities</h2>
+<p>Let’s start with comparing the vocabulary. How do React, Redux and TypeScript features relate to Elm in the overall context of building a single page app? You might have heard that Redux is <a href="https://github.com/reduxjs/redux#influences">inspired by</a> the Elm architecture. This is very helpful, since it means we can draw some rather direct analogies between it and Elm. In React, components without any local state correspond to the way Elm views work. I won’t talk about too many TypeScript features since they are not the point of this post.</p>
+<p>This table is a simplification for sure, but hopefully a helpful one.</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 42%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Concern</th>
+<th>React+Redux+TS</th>
+<th>Elm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>views</td>
+<td>stateless React components</td>
+<td><code>view</code></td>
+</tr>
+<tr>
+<td>data modeling</td>
+<td>TypeScript types</td>
+<td>types</td>
+</tr>
+<tr>
+<td>app state</td>
+<td>Redux store</td>
+<td><code>model</code></td>
+</tr>
+<tr>
+<td>input/events</td>
+<td>Redux actions</td>
+<td><code>Msg</code> (message)</td>
+</tr>
+<tr>
+<td>updating state</td>
+<td>Redux reducer</td>
+<td><code>update</code></td>
+</tr>
+<tr>
+<td>effects (e.g. HTTP request)</td>
+<td><code>redux-loop</code>, <code>redux-saga</code>, …</td>
+<td><code>Cmd</code> (command)</td>
+</tr>
+</tbody>
+</table>
+<p>All in all, the two “frameworks” provide comparable functionality and one can follow very similar coding patterns in both. The main differences are that in Elm you can only have one <code>model</code> and in Redux you could have several stores, and that there are no stateful views in Elm. Everything that changes the UI simply has to be in the <code>model</code>. These might sound like big restrictions, but in my experience they really cut down on the bikeshedding we all end up doing in bigger projects. You never have to argue whether a slice of state should have its own store or not, or if the input value should go in the Redux store or local state.</p>
+<p>With that, let’s move on to covering some points that we knew were especially nice about Elm and we had some trouble with in our React, Redux and TypeScript project!</p>
+<h2 id="everything-is-safe">Everything is safe</h2>
+<p>“I call it my billion-dollar mistake” said <a href="https://en.wikipedia.org/wiki/Tony_Hoare">Sir Tony Hoare</a> at a conference in 2009. He was speaking about the null reference, something he came up with in 1965. “My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler.”</p>
+<p>TypeScript is a superset of JavaScript, so it can never remedy the billion dollar mistake. Elm has done it. The way you deal with potentially non-existing values (like the first element in a list) is that you always have a fallback of some sort. This is incredibly reassuring. Even in a large codebase I have never seen before, I can be certain that changes I make will not cause runtime exceptions somewhere else. Also, no matter what kind of deadlines we’ve been under, there won’t be unexplored paths that lead to crashes. We have much more time to focus on the logic bugs instead!</p>
+<p>If this idea seems unfamiliar, here’s a concrete example of how this works in Elm. Converting a string to a floating point number is a simple case where things might not work out:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>showNumber maybeNumber <span class="ot">=</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> maybeNumber <span class="kw">of</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Just</span> number <span class="ot">-&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            <span class="co">-- Great, we have the number so we can format it nicely!</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            formatNumberNicely number</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">Nothing</span> <span class="ot">-&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>            <span class="co">-- This is the fallback in case the number isn't there.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            <span class="co">-- The code wouldn't compile without this branch.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;The conversion didn't work out&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>showNumber (<span class="dt">String</span><span class="op">.</span>toFloat <span class="st">&quot;3.14159265&quot;</span>) <span class="op">--&gt;</span> <span class="st">&quot;3.14&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>showNumber (<span class="dt">String</span><span class="op">.</span>toFloat <span class="st">&quot;3 stars&quot;</span>) <span class="op">--&gt;</span> <span class="st">&quot;The conversion didn't work out&quot;</span></span></code></pre></div>
+<p>So in any case, we will get a string out of the <code>showNumber</code> function. In practice the best place to handle missing information is usually on the Html view itself. Content is loading? Show a loading view. Request failed? Show a failure view.</p>
+<h2 id="reliable-types-for-all-packages">Reliable types for all packages</h2>
+<p>To me, the single most appealing feature of a statically typed language is that as a developer I can rely 100% on things like function names and argument types to be correct when the compiler says “Success”. If you’ve used TypeScript for a while, you have most likely come across packages that either don’t provide any TypeScript type information, and you need community-provided typings that are out of sync with the package itself, or worse, the package includes typings that are downright incorrect. I have sadly had this experience several times in the past year.</p>
+<p>In Elm, the package manager knows the types. They are an intrinsic feature of all Elm packages and not something you can omit or get wrong – all types in the code must match the documentation for the package to be publishable. Speaking of, all Elm packages have to have documentation for every single function they expose, and semantic versioning is enforced by the compiler too. What’s super nice for the user is that all packages have their documentation in the same place (<a href="https://package.elm-lang.org/">package.elm-lang.org</a>) formatted the same way.</p>
+<p>The package ecosystem in Elm is very different from npm. There are far fewer packages, and I feel on average they are incredibly well designed and documented. In general, you don’t need many dependencies at all for building a big project – the language core provides lodash-like utilities and such by default. Things like <a href="https://package.elm-lang.org/packages/NoRedInk/elm-sortable-table/latest/">sortable tables</a>, <a href="https://package.elm-lang.org/packages/abradley2/elm-datepicker/latest/">date pickers</a>, <a href="https://package.elm-lang.org/packages/terezka/line-charts/latest/">charts</a> and <a href="https://package.elm-lang.org/packages/gampleman/elm-visualization/latest/">visualizations</a> have one or two packages that almost everyone needing them uses. On the other hand, there are things that do not exist in Elm like Google Maps (though there are other map packages). For these, you can either <a href="https://dev.to/lukewestby/talk-when-and-how-to-use-web-components-with-elm-f85">wrap them in Web Components</a> or use ports, which allow you to freely but safely communicate with the JS land.</p>
+<h2 id="compiler-helps-you-finish-new-features">Compiler helps you finish new features</h2>
+<p>There are a good amount of places in the code base to go through when adding a new feature in Redux. You need to create the UI, event handler, action creator, action, and reducer branch. It’s a lot to remember! TypeScript does not help me remember what parts of the code I was supposed to touch – which makes total sense as you can use it for so many other things besides Redux apps.</p>
+<p>In Elm, you can start with creating the UI part using a message name that doesn’t exist yet, and the compiler will then guide you through all of the rest. I know this sounds silly, so let me demonstrate. Starting with the classic counter example you get when you head to <a href="https://ellie-app.com/new">ellie-app.com/new</a>, let’s add a reset feature!</p>
+<ol type="1">
+<li>Add a button to the UI (as line 38): <code>, button [ onClick Reset ] [ text "reset" ]</code>.
+<br>➤ Compile. The message will say “I cannot find a `Reset` constructor”</li>
+<li>Realize you need the new message, add <code>| Reset</code> to the Msg type (as line 20).
+<br>➤ Compile. The message will say “This `case` does not have branches for all possibilities” and mention the missing Reset branch.</li>
+<li>Recall you need to add the branch to the <code>update</code> (eg. as line 32): <code>Reset -&gt; initialModel</code>.
+<br>➤ Compile. The program will compile and have a new feature: <em>a fully working reset button</em> 🎉!</li>
+</ol>
+<h2 id="all-of-the-code-has-good-typings">All of the code has good typings</h2>
+<p>A lovely feature in modern statically typed languages, like TypeScript, is type inference. This means the compiler can figure out the types in your code on its own. Unfortunately the compiler can get confused sometimes, like in the case of filtering specific types of things from an array.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>type MaybeMessage <span class="op">=</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> { <span class="dt">type</span><span class="op">:</span> <span class="st">'has-message'</span><span class="op">,</span> <span class="dt">message</span><span class="op">:</span> string }</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|</span> { <span class="dt">type</span><span class="op">:</span> <span class="st">'no-message'</span> }</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> myArray<span class="op">:</span> MaybeMessage[] <span class="op">=</span> [<span class="co">/*...*/</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>myArray</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(item <span class="kw">=&gt;</span> item<span class="op">.</span><span class="at">type</span> <span class="op">===</span> <span class="st">'has-message'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(item <span class="kw">=&gt;</span> item<span class="op">.</span><span class="at">message</span>) </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">// ERROR: Property 'message' does not exist on type '{ type: &quot;no-message&quot;; }'</span></span></code></pre></div>
+<p>The error can be resolved in a number of ways, such as casting to <code>any</code> or creating a type guard function, but it’s always a bit of an awkward feeling when you need to tell the compiler what is really going on.</p>
+<p>This might sound weird but in my experience the type inference in Elm is flawless. I’ve written tens of thousands of lines of Elm and not once have I seen a case where the compiler didn’t know what the types really are. I have disagreed on many occasions of course, but the compiler has always had it right and not me. It does not matter if you’ve written type annotations or not, the type inference will work just as well without any hints. As a matter of fact, the compiler only uses your type annotations to check that your expectations and the actual types match up.</p>
+<h2 id="validating-data-is-not-optional">Validating data is not optional</h2>
+<p>One of the things I’ve come to love the most in Elm was something I was most confused about when I was first learning the language: JSON has to be decoded before the data can be used in your app. This might sound cumbersome and I have to admit it is a little.</p>
+<p>However, the positives start to outweigh the negatives as soon as you find a discrepancy between what you expected the data to be and what it really is. If you are validating the data (and handling potential errors) right at the border of your app, there won’t be any unexpected crashes even if the backend responds something totally strange. This means you immediately know what part of the codebase you need to be touching.</p>
+<p>You can do this in TypeScript too with e.g. <a href="https://github.com/gcanti/io-ts">io-ts</a>. It’s worth trying out, I promise!</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you read this far I want to thank you for your time! There are many many things to love about working with React, Redux and TypeScript. If you feel like you’re happy with these technologies, feel free to keep using them! Also remember that there are places where the React-Redux world is ahead of Elm: notably there is no official way to do server side rendering or code-splitting in Elm as of yet. These are planned, but if you do need those now it’s probably a good idea to hold off for a while still!</p>
+<p>If you did get interested in trying out Elm, I suggest starting with the official <a href="https://guide.elm-lang.org/">guide</a> and then joining the super friedly and welcoming <a href="http://elmlang.herokuapp.com/">Slack</a>. Don’t be afraid to ask any beginner questions either, the community loves to help people!</p>
+<h2 id="appendix-code-example-comparison">Appendix: Code example comparison</h2>
+<p>This section is here just to show how the TypeScript and Elm languages represent the same ideas. TypeScript is definitely a more general purpose language than Elm, which is mixed blessing. On the one hand, you can write whatever code you could in JavaScript (from React, Angular, and Vue.js to CLI scripts). On the other hand, there are no hints or built-in patterns to guide you how to write your React+Redux application. Elm is a language that only has the React+Redux -like application pattern (the Elm Architecture), which means there is considerably less “boilerplate” to tie things together at the type level. This is particularly true for the event handlers – see the Full module example.</p>
+<h3 id="set-up-a-type-and-initial-value-for-the-app-state">1. Set up a type and initial value for the app state</h3>
+<p>TypeScript</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> State {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">yourName</span><span class="op">:</span> string<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> defaultState<span class="op">:</span> State <span class="op">=</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">yourName</span><span class="op">:</span> <span class="st">''</span><span class="op">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Elm</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> alias <span class="dt">Model</span> <span class="ot">=</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    { yourName <span class="op">:</span> <span class="dt">String</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">:</span> <span class="dt">Model</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    { yourName <span class="ot">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<h3 id="create-a-union-type-to-represent-all-inputs-and-events-in-the-app">2. Create a union type to represent all inputs and events in the app</h3>
+<p>TypeScript</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>type Action <span class="op">=</span> { <span class="dt">type</span><span class="op">:</span> <span class="st">'NameChanged'</span><span class="op">,</span> <span class="dt">payload</span><span class="op">:</span> { <span class="dt">text</span><span class="op">:</span> string } }</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">// But we also want an action creator</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">nameChanged</span>(text<span class="op">:</span> string)<span class="op">:</span> Action {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> { <span class="dt">type</span><span class="op">:</span> <span class="st">'NameChanged'</span><span class="op">,</span> <span class="dt">payload</span><span class="op">:</span> { text } }</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Elm</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Msg</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dt">NameChanged</span> <span class="dt">String</span></span></code></pre></div>
+<p>There’s no need for an action creator in Elm, <code>NameChanged</code> is now a function that takes a string and returns a message.</p>
+<h3 id="create-a-view-that-uses-the-state-and-can-dispatch-an-action">3. Create a view that uses the state and can dispatch an action</h3>
+<p>TypeScript</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MyComponent <span class="op">=</span> (props<span class="op">:</span> Props) <span class="kw">=&gt;</span> (</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>input</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      onInput<span class="op">=</span>{(<span class="dt">event</span><span class="op">:</span> any) <span class="kw">=&gt;</span> props<span class="op">.</span><span class="fu">onNameChanged</span>(<span class="bu">event</span><span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)}</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      value<span class="op">=</span>{props<span class="op">.</span><span class="at">yourName</span>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">/&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>h1<span class="op">&gt;</span>Hello<span class="op">,</span> {props<span class="op">.</span><span class="at">yourName</span>}<span class="op">!&lt;/</span>h1<span class="op">&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>With React, people usually use JSX, which has it’s own semantics and syntactic peculiarities.</p>
+<p>Elm</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>view <span class="op">:</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>view model <span class="ot">=</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">div</span> []</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        [ input [ onInput <span class="dt">NameChanged</span>, value model<span class="op">.</span>yourName ] []</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        , h1 [] [ text model<span class="op">.</span>yourName ]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        ]</span></code></pre></div>
+<p>In Elm, people use <code>elm/html</code>. It is just a collection of functions like <code>div</code> that work the exact same way as all other functions, both syntactically and semantically.</p>
+<h3 id="full-example-of-a-simple-ui-module">4. Full example of a simple UI module</h3>
+<p>TypeScript (adapted from <a href="https://medium.com/knerd/typescript-tips-series-proper-typing-of-react-redux-connected-components-eda058b6727d">this post</a>)</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> React <span class="im">from</span> <span class="st">'react'</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> Redux <span class="im">from</span> <span class="st">'redux'</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">// import Action and State from someplace</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="op">*</span> <span class="im">as</span> Actions <span class="im">from</span> <span class="st">'./actions.ts'</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { State } <span class="im">from</span> <span class="st">'./reducer.ts'</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> DispatchProps {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">onNameChanged</span><span class="op">:</span> (<span class="dt">text</span><span class="op">:</span> string) <span class="kw">=&gt;</span> <span class="kw">void</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>type Props <span class="op">=</span> State <span class="op">&amp;</span> DispatchProps</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> MyComponent <span class="op">=</span> (props<span class="op">:</span> Props) <span class="kw">=&gt;</span> (</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>input</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>      onInput<span class="op">=</span>{(<span class="dt">event</span><span class="op">:</span> any) <span class="kw">=&gt;</span> props<span class="op">.</span><span class="fu">onNameChanged</span>(<span class="bu">event</span><span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">value</span>)}</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      value<span class="op">=</span>{props<span class="op">.</span><span class="at">yourName</span>}</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">/&gt;</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>h1<span class="op">&gt;</span>Hello<span class="op">,</span> {props<span class="op">.</span><span class="at">yourName</span>}<span class="op">!&lt;/</span>h1<span class="op">&gt;</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> mapStateToProps <span class="op">=</span> (state<span class="op">:</span> State)<span class="op">:</span> State <span class="kw">=&gt;</span> state</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> mapDispatchToProps <span class="op">=</span> (dispatch<span class="op">:</span> Redux<span class="op">.</span><span class="at">Dispatch</span><span class="op">&lt;</span>Actions<span class="op">.</span><span class="at">Action</span><span class="op">&gt;</span>)<span class="op">:</span> DispatchProps <span class="kw">=&gt;</span> ({</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">onNameChanged</span><span class="op">:</span> (<span class="dt">text</span><span class="op">:</span> string) <span class="kw">=&gt;</span> <span class="fu">dispatch</span>(Actions<span class="op">.</span><span class="fu">onNameChanged</span>(text))<span class="op">,</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> connect<span class="op">&lt;</span>State<span class="op">,</span> DispatchProps<span class="op">&gt;</span>(</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  mapStateToProps<span class="op">,</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  mapDispatchToProps</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>)(MyComponent)</span></code></pre></div>
+<p>Elm</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> <span class="dt">View</span> exposing (view)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Html</span> exposing (<span class="dt">Html</span>, div, text)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Html.Attributes</span> exposing (value)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Html.Events</span> exposing (onInput)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">-- import Model and Msg from someplace</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Types</span> exposing (<span class="dt">Model</span>, <span class="dt">Msg</span>(..))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>view <span class="op">:</span> <span class="dt">Model</span> <span class="ot">-&gt;</span> <span class="dt">Html</span> <span class="dt">Msg</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>view model <span class="ot">=</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">div</span> []</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        [ input [ onInput <span class="dt">NameChanged</span>, value model<span class="op">.</span>yourName ] []</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        , h1 [] [ text model<span class="op">.</span>yourName ]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        ]</span></code></pre></div>
+<p>These modules really do achieve the same things and have roughly the same amount of type safety. That is:</p>
+<ul>
+<li>We know the shape of the app state (that there is a <code>yourName</code>)</li>
+<li>We are certain about the name and type of the action (that there is a <code>NameChanged</code> and it expects a single string)</li>
+</ul>
+
+
+  </section>
+  <footer>
+    <a href="https://github.com/ohanhi">GitHub</a>
+  </footer>
+
+  <script src="./js/main.js"></script>
+  <script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='https://www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-58943555-1');ga('send','pageview');
+    </script>
+  </body>
+  </html>

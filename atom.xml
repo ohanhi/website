@@ -13,8 +13,8 @@
     <updated>2026-11-16T00:00:00Z</updated>
     <entry>
     <title>Automated UI testing: What to test and how?</title>
-    <link href="https://ohanhi.dev/posts/2026-11-16-ui-testing-what-and-how.md" />
-    <id>https://ohanhi.dev/posts/2026-11-16-ui-testing-what-and-how.md</id>
+    <link href="https://ohanhi.dev/2026-11-16-ui-testing-what-and-how.html" />
+    <id>https://ohanhi.dev/2026-11-16-ui-testing-what-and-how.html</id>
     <published>2026-11-16T00:00:00Z</published>
     <updated>2026-11-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -187,8 +187,8 @@
 </entry>
 <entry>
     <title>Getting objective results with automated UI testing</title>
-    <link href="https://ohanhi.dev/posts/2026-11-16-getting-objective-results.md" />
-    <id>https://ohanhi.dev/posts/2026-11-16-getting-objective-results.md</id>
+    <link href="https://ohanhi.dev/2026-11-16-getting-objective-results.html" />
+    <id>https://ohanhi.dev/2026-11-16-getting-objective-results.html</id>
     <published>2026-11-16T00:00:00Z</published>
     <updated>2026-11-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -267,8 +267,8 @@
 </entry>
 <entry>
     <title>What is automated UI testing and why should you do it?</title>
-    <link href="https://ohanhi.dev/posts/2026-11-16-automated-ui-testing.md" />
-    <id>https://ohanhi.dev/posts/2026-11-16-automated-ui-testing.md</id>
+    <link href="https://ohanhi.dev/2026-11-16-automated-ui-testing.html" />
+    <id>https://ohanhi.dev/2026-11-16-automated-ui-testing.html</id>
     <published>2026-11-16T00:00:00Z</published>
     <updated>2026-11-16T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -351,8 +351,8 @@
 </entry>
 <entry>
     <title>If you're using React, Redux and TypeScript, you would be so happy with Elm!</title>
-    <link href="https://ohanhi.dev/posts/2019-03-01-react-typescript-vs-elm.md" />
-    <id>https://ohanhi.dev/posts/2019-03-01-react-typescript-vs-elm.md</id>
+    <link href="https://ohanhi.dev/2019-03-01-react-typescript-vs-elm.html" />
+    <id>https://ohanhi.dev/2019-03-01-react-typescript-vs-elm.html</id>
     <published>2019-03-01T00:00:00Z</published>
     <updated>2019-03-01T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -610,8 +610,8 @@
 </entry>
 <entry>
     <title>Tasks in Modern Elm</title>
-    <link href="https://ohanhi.dev/posts/2018-02-09-tasks-in-modern-elm.md" />
-    <id>https://ohanhi.dev/posts/2018-02-09-tasks-in-modern-elm.md</id>
+    <link href="https://ohanhi.dev/2018-02-09-tasks-in-modern-elm.html" />
+    <id>https://ohanhi.dev/2018-02-09-tasks-in-modern-elm.html</id>
     <published>2018-02-09T00:00:00Z</published>
     <updated>2018-02-09T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -728,8 +728,8 @@
 </entry>
 <entry>
     <title>Check palindromes in Elm</title>
-    <link href="https://ohanhi.dev/posts/2017-10-20-elm-quicks-day-1.md" />
-    <id>https://ohanhi.dev/posts/2017-10-20-elm-quicks-day-1.md</id>
+    <link href="https://ohanhi.dev/2017-10-20-elm-quicks-day-1.html" />
+    <id>https://ohanhi.dev/2017-10-20-elm-quicks-day-1.html</id>
     <published>2017-10-20T00:00:00Z</published>
     <updated>2017-10-20T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -802,8 +802,8 @@
 </entry>
 <entry>
     <title>Elm and the unknown</title>
-    <link href="https://ohanhi.dev/posts/2017-05-11-elm-and-the-unknown.md" />
-    <id>https://ohanhi.dev/posts/2017-05-11-elm-and-the-unknown.md</id>
+    <link href="https://ohanhi.dev/2017-05-11-elm-and-the-unknown.html" />
+    <id>https://ohanhi.dev/2017-05-11-elm-and-the-unknown.html</id>
     <published>2017-05-11T00:00:00Z</published>
     <updated>2017-05-11T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -987,8 +987,8 @@
 </entry>
 <entry>
     <title>Introduction to data structures</title>
-    <link href="https://ohanhi.dev/posts/2017-04-21-master-elm-2-data-structures.md" />
-    <id>https://ohanhi.dev/posts/2017-04-21-master-elm-2-data-structures.md</id>
+    <link href="https://ohanhi.dev/2017-04-21-master-elm-2-data-structures.html" />
+    <id>https://ohanhi.dev/2017-04-21-master-elm-2-data-structures.html</id>
     <published>2017-04-21T00:00:00Z</published>
     <updated>2017-04-21T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -1183,8 +1183,8 @@ In the drawing below, the blue one is the existing list with items always linkin
 </entry>
 <entry>
     <title>From Jekyll to Hakyll</title>
-    <link href="https://ohanhi.dev/posts/2017-04-17-from-jekyll-to-hakyll.md" />
-    <id>https://ohanhi.dev/posts/2017-04-17-from-jekyll-to-hakyll.md</id>
+    <link href="https://ohanhi.dev/2017-04-17-from-jekyll-to-hakyll.html" />
+    <id>https://ohanhi.dev/2017-04-17-from-jekyll-to-hakyll.html</id>
     <published>2017-04-17T00:00:00Z</published>
     <updated>2017-04-17T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -1309,8 +1309,8 @@ In the drawing below, the blue one is the existing list with items always linkin
 </entry>
 <entry>
     <title>Elm Decoders and Secret Spy Messages</title>
-    <link href="https://ohanhi.dev/posts/2017-01-24-secret-spy-messages.md" />
-    <id>https://ohanhi.dev/posts/2017-01-24-secret-spy-messages.md</id>
+    <link href="https://ohanhi.dev/2017-01-24-secret-spy-messages.html" />
+    <id>https://ohanhi.dev/2017-01-24-secret-spy-messages.html</id>
     <published>2017-01-24T00:00:00Z</published>
     <updated>2017-01-24T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -1442,8 +1442,8 @@ Elm.SecretMessage.embed(document.getElementById('secretmsg'));
 </entry>
 <entry>
     <title>The Why and When of Choosing Elm</title>
-    <link href="https://ohanhi.dev/posts/2017-01-13-why-and-when-of-choosing-elm-visual.md" />
-    <id>https://ohanhi.dev/posts/2017-01-13-why-and-when-of-choosing-elm-visual.md</id>
+    <link href="https://ohanhi.dev/2017-01-13-why-and-when-of-choosing-elm-visual.html" />
+    <id>https://ohanhi.dev/2017-01-13-why-and-when-of-choosing-elm-visual.html</id>
     <published>2017-01-13T00:00:00Z</published>
     <updated>2017-01-13T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -1646,8 +1646,8 @@ Especially helpful for bigger frontend teams
 </entry>
 <entry>
     <title>The Why and When of Choosing Elm</title>
-    <link href="https://ohanhi.dev/posts/2017-01-10-why-and-when-of-choosing-elm.md" />
-    <id>https://ohanhi.dev/posts/2017-01-10-why-and-when-of-choosing-elm.md</id>
+    <link href="https://ohanhi.dev/2017-01-10-why-and-when-of-choosing-elm.html" />
+    <id>https://ohanhi.dev/2017-01-10-why-and-when-of-choosing-elm.html</id>
     <published>2017-01-10T00:00:00Z</published>
     <updated>2017-01-10T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -1773,8 +1773,8 @@ Especially helpful for bigger frontend teams
 </entry>
 <entry>
     <title>Base for a game in Elm 0.17</title>
-    <link href="https://ohanhi.dev/posts/2016-05-18-base-for-game-elm-017.md" />
-    <id>https://ohanhi.dev/posts/2016-05-18-base-for-game-elm-017.md</id>
+    <link href="https://ohanhi.dev/2016-05-18-base-for-game-elm-017.html" />
+    <id>https://ohanhi.dev/2016-05-18-base-for-game-elm-017.html</id>
     <published>2016-05-18T00:00:00Z</published>
     <updated>2016-05-18T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -2129,8 +2129,8 @@ Especially helpful for bigger frontend teams
 </entry>
 <entry>
     <title>The future of Elm + React Native</title>
-    <link href="https://ohanhi.dev/posts/2016-03-21-elm-native-ui-update.md" />
-    <id>https://ohanhi.dev/posts/2016-03-21-elm-native-ui-update.md</id>
+    <link href="https://ohanhi.dev/2016-03-21-elm-native-ui-update.html" />
+    <id>https://ohanhi.dev/2016-03-21-elm-native-ui-update.html</id>
     <published>2016-03-21T00:00:00Z</published>
     <updated>2016-03-21T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
@@ -2222,8 +2222,8 @@ Hacking on <a href="https://twitter.com/elmlang"><span class="citation" data-cit
 </entry>
 <entry>
     <title>Why Elm</title>
-    <link href="https://ohanhi.dev/posts/2016-03-02-master-elm-1-why-elm.md" />
-    <id>https://ohanhi.dev/posts/2016-03-02-master-elm-1-why-elm.md</id>
+    <link href="https://ohanhi.dev/2016-03-02-master-elm-1-why-elm.html" />
+    <id>https://ohanhi.dev/2016-03-02-master-elm-1-why-elm.html</id>
     <published>2016-03-02T00:00:00Z</published>
     <updated>2016-03-02T00:00:00Z</updated>
     <summary type="html"><![CDATA[<header class="post-header">
