@@ -3,9 +3,9 @@ layout: post
 title: "Automated UI testing: What to test and how?"
 ---
 
-> **In this article, we look at UI testing from two perspectives: how to choose the right tool for the job, and how to decide if a test is worth writing or not. I also introduce a decision model of my own that you can use or adapt to make the most of your testing.**
+**In this article, we look at UI testing from two perspectives: how to choose the right tool for the job, and how to decide if a test is worth writing or not. I also introduce a decision model of my own that you can use or adapt to make the most of your testing.**
 
-_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog but is no longer available._
+<small>_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog but is no longer available._</small>
 
 In my previous two articles, _What is automated UI testing and why should you do it?_ and _Getting objective results with automated UI testing_, we focused on the benefits of automating your user interface testing. In addition to avoiding bugs and regressions, test automation can help clarify intent, document critical paths, and in general give objective feedback on your work.
 

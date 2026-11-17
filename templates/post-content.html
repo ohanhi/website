@@ -16,6 +16,7 @@
   <p class="post-date">$date$</p>
 </div>
 
+$if(read_this_to)$
 <hr>
 
 <h3>Read this to</h3>
@@ -32,4 +33,6 @@
   $endfor$
 </ul>
 
-<hr> $body$
+<hr>
+$endif$
+$body$
