@@ -26,6 +26,7 @@
   <p class="post-date">February 9, 2018</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -42,7 +43,9 @@
   
 </ul>
 
-<hr> <h2 id="why-tasks-matter">Why tasks matter</h2>
+<hr>
+
+<h2 id="why-tasks-matter">Why tasks matter</h2>
 <p>The <a href="https://guide.elm-lang.org/">official guide</a> is great for most things in Elm 0.18, but it still doesn’t cover a very important feature of the language: <code>Task</code>. With the introduction of Elm 0.17, use cases for tasks shrunk from an everyday occurrence to a “you most likely don’t need this” status.</p>
 <p>The use case that does remain is tying several side-effects together. A common example of this is when people need a time stamp to go with their HTTP request. <code>Cmd</code>s cannot be set to run one after another. One <em>could</em> add a subscription to <code>Time.every (Time.second)</code> and have the current time always in the model for example, but a whole bunch of requests can happen in a second, and a millisecond timer is just out of the question. So how do we solve this? Tasks.</p>
 <h2 id="task-basics">Task basics</h2>

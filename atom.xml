@@ -31,6 +31,7 @@
   <p class="post-date">November 16, 2026</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -43,10 +44,10 @@
   
 </ul>
 
-<hr> <blockquote>
+<hr>
+
 <p><strong>In this article, we look at UI testing from two perspectives: how to choose the right tool for the job, and how to decide if a test is worth writing or not. I also introduce a decision model of my own that you can use or adapt to make the most of your testing.</strong></p>
-</blockquote>
-<p><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
+<p><small><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></small></p>
 <p>In my previous two articles, <em>What is automated UI testing and why should you do it?</em> and <em>Getting objective results with automated UI testing</em>, we focused on the benefits of automating your user interface testing. In addition to avoiding bugs and regressions, test automation can help clarify intent, document critical paths, and in general give objective feedback on your work.</p>
 <p>This time, I will explain how I like to think about what to test and how. To that end, I will explain the 4×2 model of testing that I built to illustrate my thinking and show you how to use it to become more analytical about your testing as well.</p>
 <p>Adding tests is usually only thought of as positive, no matter the situation. I don’t see it that way. Tests are more code to maintain and take time to run. If they do not provide enough value to offset the costs, they are not good investments.</p>
@@ -207,6 +208,7 @@
   <p class="post-date">November 16, 2026</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -219,10 +221,10 @@
   
 </ul>
 
-<hr> <blockquote>
+<hr>
+
 <p><strong>Automated tests help the development team at least as much as the product owner. They help you to stay focused, make onboarding much smoother and even foster a positive work environment.</strong></p>
-</blockquote>
-<p><em>This post was originally published in Nov 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
+<p><small><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></small></p>
 <p>In my previous article What is automated UI testing and why should you do it?, we discussed the main concepts of automated testing and explained its main motivations for the product owner. In this article, we take a closer look at how us developers can benefit from test automation.</p>
 <p>Whether you are building a new application from scratch or adding functionality to an established codebase, it’s essential to make sure that the codebase is a coherent whole. This can range from stylistic choices to organising code at the actual user interface level.</p>
 <p>Introducing more and more automated tests is not always a net positive, though. Every test adds a few seconds or minutes to the overall runtime and, at worst, flaky tests can prevent perfectly good code from being deployed.</p>
@@ -289,6 +291,7 @@
   <p class="post-date">November 16, 2026</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -301,10 +304,10 @@
   
 </ul>
 
-<hr> <blockquote>
+<hr>
+
 <p><strong>Automating user interface testing can help you avoid bugs, make sure that existing features keep working, let the development team focus on what matters – and save money as a result.</strong></p>
-</blockquote>
-<p><em>This post was originally published in Oct 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
+<p><small><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></small></p>
 <p>Anyone who has tried cooking straight from a recipe knows how hard it is to write and read clear instructions for anything that includes dependencies. In software, there are few things that can be expressed as simply as in recipes.</p>
 <p>There are many ways software developers manage complexity, but at the end of the day, there are always untraveled paths and unintended consequences in even medium-sized applications. While we as developers are experts in foreseeing the possible cases, we still can’t cover even a fraction of the possible routes in our heads. Instead, we rely on trying out the features and seeing if they work as expected.</p>
 <h2 id="why-cant-we-just-make-sure-that-our-app-has-no-bugs">Why can’t we just make sure that our app has no bugs?</h2>
@@ -375,6 +378,7 @@
   <p class="post-date">March 1, 2019</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -393,7 +397,9 @@
   
 </ul>
 
-<hr> <h2 id="introduction">Introduction</h2>
+<hr>
+
+<h2 id="introduction">Introduction</h2>
 <p>I have used Elm in two client projects spanning about three years total. In my latest project we used React, Redux and TypeScript instead, and that was pretty nice too. This post is meant to be a conversation starter, a thought piece, on “what if we tried Elm for real?” If you’re thinking no one is using Elm, let me point out that companies like <a href="https://github.com/Microsoft/elm-json-tree-view">Microsoft</a>, <a href="https://discourse.elm-lang.org/t/ibm-releases-elm-powered-app/2364">IBM</a> and <a href="https://learningmusic.ableton.com">Ableton</a> have successfully used Elm in production.</p>
 <p>If you’ve used TypeScript in a project already, good for you! You can probably agree that the static types it provides can be a real help when adding new features. And where it really shines is refactoring. Changing function arguments or removing fields from a configuration object in a JavaScript project can be a very risky thing, but the TypeScript compiler can spot many places where things are going wrong. You can be much more confident that the code will work. Now imagine that was the case for every single change in the code base? And you could be 100% certain there are no places left using the old structure once you’re done? That’s what Elm can give you! Furthermore, the compiler will help you go through all the steps needed while adding a feature, but let’s come back to that a bit later.</p>
 <p>Before we begin, I want to emphasize that I am not saying Elm is the best solution in all cases. There are very valid reasons to use React, Redux and TypeScript instead! There are valid reasons even for not using a framework at all. This post just focuses on the lovely things I know from Elm, compared to how the same thing worked in the React project. Do what you love and what feels like the best solution for the problem at hand. 💝</p>
@@ -634,6 +640,7 @@
   <p class="post-date">February 9, 2018</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -650,7 +657,9 @@
   
 </ul>
 
-<hr> <h2 id="why-tasks-matter">Why tasks matter</h2>
+<hr>
+
+<h2 id="why-tasks-matter">Why tasks matter</h2>
 <p>The <a href="https://guide.elm-lang.org/">official guide</a> is great for most things in Elm 0.18, but it still doesn’t cover a very important feature of the language: <code>Task</code>. With the introduction of Elm 0.17, use cases for tasks shrunk from an everyday occurrence to a “you most likely don’t need this” status.</p>
 <p>The use case that does remain is tying several side-effects together. A common example of this is when people need a time stamp to go with their HTTP request. <code>Cmd</code>s cannot be set to run one after another. One <em>could</em> add a subscription to <code>Time.every (Time.second)</code> and have the current time always in the model for example, but a whole bunch of requests can happen in a second, and a millisecond timer is just out of the question. So how do we solve this? Tasks.</p>
 <h2 id="task-basics">Task basics</h2>
@@ -754,6 +763,7 @@
   <p class="post-date">October 20, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -770,7 +780,9 @@
   
 </ul>
 
-<hr> <p>I teach Elm to my co-workers at Futurice by live-coding each Friday that I can. After each session, I publish the code produced and write a short post explaining the topics covered that time.</p>
+<hr>
+
+<p>I teach Elm to my co-workers at Futurice by live-coding each Friday that I can. After each session, I publish the code produced and write a short post explaining the topics covered that time.</p>
 <p>This is the first post in the series.</p>
 <p>All code can be found on <a href="https://github.com/ohanhi/elm-quicks">GitHub</a>.</p>
 <h2 id="day-1-check-that-palindrome">Day 1: Check that palindrome</h2>
@@ -828,6 +840,7 @@
   <p class="post-date">May 11, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -850,7 +863,9 @@
   
 </ul>
 
-<hr> <h2 id="table-of-contents">Table of contents</h2>
+<hr>
+
+<h2 id="table-of-contents">Table of contents</h2>
 <ul>
 <li><a href="#foreword">Foreword</a></li>
 <li><a href="#choose-the-right-tool-for-the-job">Choose the right tool for the job</a></li>
@@ -1013,6 +1028,7 @@
   <p class="post-date">April 21, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1029,7 +1045,9 @@
   
 </ul>
 
-<hr> <p>Most people come to Elm from JavaScript, and traditionally JavaScript has really only had two data structures, object and array. Today I will go through all of the basic data structures in Elm, telling when to use them and comparing them to JavaScript as applicable.</p>
+<hr>
+
+<p>Most people come to Elm from JavaScript, and traditionally JavaScript has really only had two data structures, object and array. Today I will go through all of the basic data structures in Elm, telling when to use them and comparing them to JavaScript as applicable.</p>
 <p><em>Note: the double dash <code>--</code> starts a comment in Elm for the rest of the line, like <code>//</code> in JavaScript.</em></p>
 <p>I suggest you to read these in order, but here’s a quick navigation just in case:</p>
 <ul>
@@ -1207,6 +1225,7 @@ In the drawing below, the blue one is the existing list with items always linkin
   <p class="post-date">April 17, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1223,7 +1242,9 @@ In the drawing below, the blue one is the existing list with items always linkin
   
 </ul>
 
-<hr> <p>As you may know, I have a rather basic website with just a home page and some blog posts. I find writing blog posts in <a href="https://daringfireball.net/projects/markdown/">Markdown</a> really nice. I think it is an excellent format that lets me keep focus on the actual content rather than the markup. These two things, writing in Markdown to create a simple website, come together in <a href="https://jekyllrb.com/">Jekyll</a>, a static site generator written in Ruby. What’s more, GitHub Pages lets you push a Jekyll site source code and it will automatically transform it into the static HTML files. Pretty handy!</p>
+<hr>
+
+<p>As you may know, I have a rather basic website with just a home page and some blog posts. I find writing blog posts in <a href="https://daringfireball.net/projects/markdown/">Markdown</a> really nice. I think it is an excellent format that lets me keep focus on the actual content rather than the markup. These two things, writing in Markdown to create a simple website, come together in <a href="https://jekyllrb.com/">Jekyll</a>, a static site generator written in Ruby. What’s more, GitHub Pages lets you push a Jekyll site source code and it will automatically transform it into the static HTML files. Pretty handy!</p>
 <p>Setting up Jekyll for development is not fun, though. First off, you need Ruby (probably via <code>rvm</code>) and Rubygems installed, and then running <code>gem install jekyll</code> will likely end up failing multiple times because of missing native extensions. Because of <a href="http://www.nokogiri.org/tutorials/installing_nokogiri.html">these issues</a>, I wanted to try something different. Since I have tried learning Haskell a little, and have heard good things about <a href="https://jaspervdj.be/hakyll/">Hakyll</a>, that was what I reached for.</p>
 <p>So far it’s been real nice, and rebuilding the site happens almost instantaneously!</p>
 <h2 id="first-steps">First steps</h2>
@@ -1333,6 +1354,7 @@ In the drawing below, the blue one is the existing list with items always linkin
   <p class="post-date">January 24, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1351,7 +1373,9 @@ In the drawing below, the blue one is the existing list with items always linkin
   
 </ul>
 
-<hr> <p>This isn’t a post that explains how to do decoding in detail, but introduces a way of thinking about decoding in Elm.</p>
+<hr>
+
+<p>This isn’t a post that explains how to do decoding in detail, but introduces a way of thinking about decoding in Elm.</p>
 <h2 id="background">Background</h2>
 <p>One thing pretty much everybody learning Elm finds a little hard to understand are JSON decoders. The reason we need make such contraptions in the first place is simple: Elm is statically typed and doesn’t have runtime exceptions. To get there from unreliable string data, we have to be explicit about how to read it in.</p>
 <p>Let’s look at a simple Decoder in two different styles:</p>
@@ -1468,6 +1492,7 @@ Elm.SecretMessage.embed(document.getElementById('secretmsg'));
   <p class="post-date">January 13, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1484,7 +1509,9 @@ Elm.SecretMessage.embed(document.getElementById('secretmsg'));
   
 </ul>
 
-<hr> <p><em>For a textual version of this content, <a href="why-and-when-of-choosing-elm.html">see here</a>.</em></p>
+<hr>
+
+<p><em>For a textual version of this content, <a href="why-and-when-of-choosing-elm.html">see here</a>.</em></p>
 <p><img src="img/why-when-elm/why-01.jpg" /></p>
 <p>Each picture has an expandable text section if you’d like some explanation for the graphics.</p>
 <details>
@@ -1670,6 +1697,7 @@ Especially helpful for bigger frontend teams
   <p class="post-date">January 10, 2017</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1686,7 +1714,9 @@ Especially helpful for bigger frontend teams
   
 </ul>
 
-<hr> <p><em>For a visual version of this content, <a href="why-and-when-of-choosing-elm-visual.html">see here</a>.</em></p>
+<hr>
+
+<p><em>For a visual version of this content, <a href="why-and-when-of-choosing-elm-visual.html">see here</a>.</em></p>
 <h2 id="what-is-elm">What is Elm?</h2>
 <ul>
 <li>Language (and “framework”) for building web frontend applications</li>
@@ -1799,6 +1829,7 @@ Especially helpful for bigger frontend teams
   <p class="post-date">May 18, 2016</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -1817,7 +1848,9 @@ Especially helpful for bigger frontend teams
   
 </ul>
 
-<hr> <p><a href="http://chilicorn.org/"><img src="https://img.shields.io/badge/Sponsored%20by-Chilicorn-brightgreen.svg" /></a></p>
+<hr>
+
+<p><a href="http://chilicorn.org/"><img src="https://img.shields.io/badge/Sponsored%20by-Chilicorn-brightgreen.svg" /></a></p>
 <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
 <h2 id="foreword">Foreword</h2>
 <p>I first learned Elm about a year ago, in May 2015. I fell in love. I also wrote <a href="https://gist.github.com/ohanhi/0d3d83cf3f0d7bbea9db">an article</a> describing how to get started with the language by implementing the base for a game. The title of the article, <em>Learning FP the hard way</em>, was supposed to be a joke of sorts, as Elm is in fact a very easy language to learn! I’m not sure how many people got that. :)</p>
@@ -2155,6 +2188,7 @@ Especially helpful for bigger frontend teams
   <p class="post-date">March 21, 2016</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -2173,7 +2207,9 @@ Especially helpful for bigger frontend teams
   
 </ul>
 
-<hr> <p><em><a href="https://github.com/elm-native-ui/elm-native-ui">Elm Native UI</a> aims to let people build mobile apps in Elm using React Native.</em></p>
+<hr>
+
+<p><em><a href="https://github.com/elm-native-ui/elm-native-ui">Elm Native UI</a> aims to let people build mobile apps in Elm using React Native.</em></p>
 <p><a href="https://github.com/elm-native-ui/elm-native-ui"><img src="/img/elm-native-dribbble.png" /></a>
 <small class="caption">Elm Native UI <a href="https://dribbble.com/shots/2383347-Elm-Native-logo">logo</a> by <a href="http://paulyoung.me/">Paul Young</a></small></p>
 <p>I wrote a <a href="/elm-native-ui.html">post</a> about <a href="https://github.com/elm-native-ui/elm-native-ui">Elm Native UI</a> a month ago. Since then, a lot has happened with the project. I had a chat with Evan Czaplicki on how things really should work. <a href="https://twitter.com/sefnap/">Yusef</a> and <a href="https://twitter.com/eeue56">Noah</a> helped move away from ports. I restructured the project to be less a proof-of-concept and more a library.</p>
@@ -2248,6 +2284,7 @@ Hacking on <a href="https://twitter.com/elmlang"><span class="citation" data-cit
   <p class="post-date">March 2, 2016</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -2268,7 +2305,9 @@ Hacking on <a href="https://twitter.com/elmlang"><span class="citation" data-cit
   
 </ul>
 
-<hr> <h2 id="the-case-for-elm">The case for Elm</h2>
+<hr>
+
+<h2 id="the-case-for-elm">The case for Elm</h2>
 <p>Elm is a language for building web frontend. It compiles to JavaScript so that it runs in the browser. What sets it apart from most other “to-javascript” languages is that it really doesn’t replicate or try to mend the intricacies of JavaScript. Elm is a language and ecosystem of its own, and it just happens to compile to JavaScript.</p>
 <p>It is very common nowadays to write code that is translated into JavaScript the most used browsers can understand. ES6 and JSX are some of the most popular ones, but there’s a multitude of others including CoffeeScript, ClojureScript and TypeScript.</p>
 <p>Why should you learn Elm then? There are many reasons, such as learning to really think in the <em>functional mindset</em> and seeing how helpful a compiler can in reality be. If you have any JavaScript experience, you probably recognize the phrases “Uncaught ReferenceError: foo is not defined” and “Uncaught TypeError: bar.quux is not a function”. This will never happen with Elm. Because of the language design, there are no runtime exceptions. Below is a list of key benefits in my opinion.</p>

@@ -26,6 +26,7 @@
   <p class="post-date">March 1, 2019</p>
 </div>
 
+
 <hr>
 
 <h3>Read this to</h3>
@@ -44,7 +45,9 @@
   
 </ul>
 
-<hr> <h2 id="introduction">Introduction</h2>
+<hr>
+
+<h2 id="introduction">Introduction</h2>
 <p>I have used Elm in two client projects spanning about three years total. In my latest project we used React, Redux and TypeScript instead, and that was pretty nice too. This post is meant to be a conversation starter, a thought piece, on “what if we tried Elm for real?” If you’re thinking no one is using Elm, let me point out that companies like <a href="https://github.com/Microsoft/elm-json-tree-view">Microsoft</a>, <a href="https://discourse.elm-lang.org/t/ibm-releases-elm-powered-app/2364">IBM</a> and <a href="https://learningmusic.ableton.com">Ableton</a> have successfully used Elm in production.</p>
 <p>If you’ve used TypeScript in a project already, good for you! You can probably agree that the static types it provides can be a real help when adding new features. And where it really shines is refactoring. Changing function arguments or removing fields from a configuration object in a JavaScript project can be a very risky thing, but the TypeScript compiler can spot many places where things are going wrong. You can be much more confident that the code will work. Now imagine that was the case for every single change in the code base? And you could be 100% certain there are no places left using the old structure once you’re done? That’s what Elm can give you! Furthermore, the compiler will help you go through all the steps needed while adding a feature, but let’s come back to that a bit later.</p>
 <p>Before we begin, I want to emphasize that I am not saying Elm is the best solution in all cases. There are very valid reasons to use React, Redux and TypeScript instead! There are valid reasons even for not using a framework at all. This post just focuses on the lovely things I know from Elm, compared to how the same thing worked in the React project. Do what you love and what feels like the best solution for the problem at hand. 💝</p>
