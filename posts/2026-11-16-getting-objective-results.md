@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Getting objective results with automated UI testing
+title: Getting objective results with automated UI testing (part 2/3)
 ---
 
 **Automated tests help the development team at least as much as the product owner. They help you to stay focused, make onboarding much smoother and even foster a positive work environment.**
 
-<small>_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog but is no longer available._</small>
+<small>_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog._</small>
 
 In my previous article What is automated UI testing and why should you do it?, we discussed the main concepts of automated testing and explained its main motivations for the product owner. In this article, we take a closer look at how us developers can benefit from test automation.
 

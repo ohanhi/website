@@ -1,11 +1,11 @@
 ---
 layout: post
-title: What is automated UI testing and why should you do it?
+title: What is automated UI testing and why should you do it? (part 1/3)
 ---
 
 **Automating user interface testing can help you avoid bugs, make sure that existing features keep working, let the development team focus on what matters – and save money as a result.**
 
-<small>_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog but is no longer available._</small>
+<small>_This post was originally published in Mar 2023 in the [Qvik](https://qvik.fi/) blog._</small>
 
 Anyone who has tried cooking straight from a recipe knows how hard it is to write and read clear instructions for anything that includes dependencies. In software, there are few things that can be expressed as simply as in recipes.
 
