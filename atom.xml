@@ -43,8 +43,10 @@
   
 </ul>
 
-<hr> <h2 id="this-post-was-originally-published-in-mar-2023-in-the-qvik-blog-but-is-no-longer-available."><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></h2>
-<p>In this article, we look at UI testing from two perspectives: how to choose the right tool for the job, and how to decide if a test is worth writing or not. I also introduce a decision model of my own that you can use or adapt to make the most of your testing.</p>
+<hr> <blockquote>
+<p><strong>In this article, we look at UI testing from two perspectives: how to choose the right tool for the job, and how to decide if a test is worth writing or not. I also introduce a decision model of my own that you can use or adapt to make the most of your testing.</strong></p>
+</blockquote>
+<p><em>This post was originally published in Mar 2023 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
 <p>In my previous two articles, <em>What is automated UI testing and why should you do it?</em> and <em>Getting objective results with automated UI testing</em>, we focused on the benefits of automating your user interface testing. In addition to avoiding bugs and regressions, test automation can help clarify intent, document critical paths, and in general give objective feedback on your work.</p>
 <p>This time, I will explain how I like to think about what to test and how. To that end, I will explain the 4×2 model of testing that I built to illustrate my thinking and show you how to use it to become more analytical about your testing as well.</p>
 <p>Adding tests is usually only thought of as positive, no matter the situation. I don’t see it that way. Tests are more code to maintain and take time to run. If they do not provide enough value to offset the costs, they are not good investments.</p>
@@ -217,8 +219,10 @@
   
 </ul>
 
-<hr> <h2 id="this-post-was-originally-published-in-nov-2022-in-the-qvik-blog-but-is-no-longer-available."><em>This post was originally published in Nov 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></h2>
-<p>Automated tests help the development team at least as much as the product owner. They help you to stay focused, make onboarding much smoother and even foster a positive work environment.</p>
+<hr> <blockquote>
+<p><strong>Automated tests help the development team at least as much as the product owner. They help you to stay focused, make onboarding much smoother and even foster a positive work environment.</strong></p>
+</blockquote>
+<p><em>This post was originally published in Nov 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
 <p>In my previous article What is automated UI testing and why should you do it?, we discussed the main concepts of automated testing and explained its main motivations for the product owner. In this article, we take a closer look at how us developers can benefit from test automation.</p>
 <p>Whether you are building a new application from scratch or adding functionality to an established codebase, it’s essential to make sure that the codebase is a coherent whole. This can range from stylistic choices to organising code at the actual user interface level.</p>
 <p>Introducing more and more automated tests is not always a net positive, though. Every test adds a few seconds or minutes to the overall runtime and, at worst, flaky tests can prevent perfectly good code from being deployed.</p>
@@ -297,8 +301,10 @@
   
 </ul>
 
-<hr> <h2 id="this-post-was-originally-published-in-oct-2022-in-the-qvik-blog-but-is-no-longer-available."><em>This post was originally published in Oct 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></h2>
-<p>Automating user interface testing can help you avoid bugs, make sure that existing features keep working, let the development team focus on what matters – and save money as a result.</p>
+<hr> <blockquote>
+<p><strong>Automating user interface testing can help you avoid bugs, make sure that existing features keep working, let the development team focus on what matters – and save money as a result.</strong></p>
+</blockquote>
+<p><em>This post was originally published in Oct 2022 in the <a href="https://qvik.fi/">Qvik</a> blog but is no longer available.</em></p>
 <p>Anyone who has tried cooking straight from a recipe knows how hard it is to write and read clear instructions for anything that includes dependencies. In software, there are few things that can be expressed as simply as in recipes.</p>
 <p>There are many ways software developers manage complexity, but at the end of the day, there are always untraveled paths and unintended consequences in even medium-sized applications. While we as developers are experts in foreseeing the possible cases, we still can’t cover even a fraction of the possible routes in our heads. Instead, we rely on trying out the features and seeing if they work as expected.</p>
 <h2 id="why-cant-we-just-make-sure-that-our-app-has-no-bugs">Why can’t we just make sure that our app has no bugs?</h2>
