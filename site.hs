@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Control.Applicative (Alternative (..))
-import Control.Monad qualified as Monad
+import Control.Monad as Monad
 import Data.Maybe (fromMaybe)
 import Data.Monoid (mappend)
 import Hakyll
